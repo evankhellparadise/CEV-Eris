@@ -1,5 +1,5 @@
 /obj/screen/psi
-	icon = 'icons/screen/psi.dmi'
+	icon = 'icons/mob/screen_psi.dmi'
 	var/mob/living/owner
 	var/hidden = TRUE
 

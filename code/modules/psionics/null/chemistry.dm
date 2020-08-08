@@ -4,15 +4,15 @@
 	required_reagents = list(/datum/reagent/blood = 15, /datum/reagent/crystal = 1)
 	result_amount = 1
 
-/datum/chemical_reaction/nullglass/get_reaction_flags(var/datum/reagents/holder)
-	for(var/datum/reagent/blood/blood in holder.reagent_list)
+/datum/chemical_reaction/nullglass/get_reaction_flags(datum/reagents/holder)
+	for(var/datum/reagent/organic/blood/blood in holder.reagent_list)
 		var/weakref/donor_ref = islist(blood.data) && blood.data["donor"]
 		if(istype(donor_ref))
 			var/mob/living/donor = donor_ref.resolve()
 			if(istype(donor) && (donor.psi || (donor.mind && GLOB.wizards.is_antagonist(donor.mind))))
 				return TRUE
 
-/datum/chemical_reaction/nullglass/on_reaction(var/datum/reagents/holder, var/created_volume, var/reaction_flags)
+/datum/chemical_reaction/nullglass/on_reaction(datum/reagents/holder, created_volume, reaction_flags)
 	var/location = get_turf(holder.my_atom)
 	if(reaction_flags)
 		for(var/i = 1, i <= created_volume, i++)
@@ -27,7 +27,7 @@
 	reagent_state = LIQUID
 	color = "#13bc5e"
 
-/datum/reagent/crystal/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
+/datum/reagent/crystal/affect_blood(mob/living/carbon/M, alien, removed)
 	var/result_mat = (M.psi || (M.mind && GLOB.wizards.is_antagonist(M.mind))) ? MATERIAL_NULLGLASS : MATERIAL_CRYSTAL
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

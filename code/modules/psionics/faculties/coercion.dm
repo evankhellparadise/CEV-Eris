@@ -119,7 +119,7 @@
 	if(!istype(target))
 		return FALSE
 
-	if(!(user.zone_sel.selecting in list(BP_L_ARM, BP_R_ARM, BP_L_HAND, BP_R_HAND)))
+	if(!(user.zone_sel.selecting in list(BP_L_ARM, BP_R_ARM)))
 		return FALSE
 
 	. = ..()

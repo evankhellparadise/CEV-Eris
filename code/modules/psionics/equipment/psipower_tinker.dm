@@ -3,25 +3,15 @@
 	icon_state = "tinker"
 	force = 1
 	var/emulating = "Crowbar"
-
-/obj/item/psychic_power/tinker/iscrowbar()
-	return emulating == "Crowbar"
-
-/obj/item/psychic_power/tinker/iswrench()
-	return emulating == "Wrench"
-
-/obj/item/psychic_power/tinker/isscrewdriver()
-	return emulating == "Screwdriver"
-
-/obj/item/psychic_power/tinker/iswirecutter()
-	return emulating == "Wirecutters"
+	tool_qualities = list(QUALITY_PRYING = 25)
+	maintain_cost = 1
 
 /obj/item/psychic_power/tinker/attack_self()
 
 	if(!owner || loc != owner)
 		return
-
-	var/choice = input("Select a tool to emulate.","Power") as null|anything in list("Crowbar","Wrench","Screwdriver","Wirecutters","Dismiss")
+	var/list/choices = list("Crowbar","Wrench","Screwdriver","Wirecutters","Hammer","Shovel","Dismiss")
+	var/choice = input("Select a tool to emulate.","Power") as null|anything in choices
 	if(!choice)
 		return
 
@@ -34,6 +24,20 @@
 		return
 
 	emulating = choice
+
 	name = "psychokinetic [lowertext(emulating)]"
 	to_chat(owner, "<span class='notice'>You begin emulating \a [lowertext(emulating)].</span>")
 	sound_to(owner, 'sound/effects/psi/power_fabrication.ogg')
+	switch(emulating)
+		if("Crowbar")
+			tool_qualities = list(QUALITY_PRYING = 25)
+		if("Wrench")
+			tool_qualities = list(QUALITY_BOLT_TURNING = 30)
+		if("Screwdriver")
+			tool_qualities = list(QUALITY_SCREW_DRIVING = 30)
+		if("Wirecutters")
+			tool_qualities = list(QUALITY_WIRE_CUTTING = 30)
+		if("Hammer")
+			tool_qualities = list(QUALITY_HAMMERING = 20)
+		if("Shovel")
+			tool_qualities = list(QUALITY_SHOVELING = 30)
