@@ -1,7 +1,7 @@
 /datum/chemical_reaction/nullglass
 	name = "Soulstone"
 	result = null
-	required_reagents = list(/datum/reagent/blood = 15, /datum/reagent/crystal = 1)
+	required_reagents = list("blood" = 15, /datum/reagent/crystal = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/nullglass/get_reaction_flags(datum/reagents/holder)

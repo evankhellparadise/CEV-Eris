@@ -6,7 +6,7 @@
 			qdel(thing)
 		manifested_items = null
 
-/datum/psi_complexus/proc/stunned(var/amount)
+/datum/psi_complexus/proc/stunned(amount)
 	var/old_stun = stun
 	stun = max(stun, amount)
 	if(amount && !old_stun)
@@ -14,7 +14,7 @@
 		ui.update_icon()
 	cancel()
 
-/datum/psi_complexus/proc/get_armour(var/armourtype)
+/datum/psi_complexus/proc/get_armour(armourtype)
 	if(can_use_passive())
 		last_armor_check = world.time
 		return round(Clamp(Clamp(4 * rating, 0, 20) * get_rank(SSpsi.armour_faculty_by_type[armourtype]), 0, 100) * (stamina/max_stamina))
@@ -22,10 +22,10 @@
 		last_armor_check = 0
 		return 0
 
-/datum/psi_complexus/proc/get_rank(var/faculty)
+/datum/psi_complexus/proc/get_rank(faculty)
 	return LAZYACCESS(ranks, faculty)
 
-/datum/psi_complexus/proc/set_rank(var/faculty, var/rank, var/defer_update, var/temporary)
+/datum/psi_complexus/proc/set_rank(faculty, rank, defer_update, temporary)
 	if(get_rank(faculty) != rank)
 		LAZYSET(ranks, faculty, rank)
 		if(!temporary)
@@ -33,7 +33,7 @@
 		if(!defer_update)
 			update()
 
-/datum/psi_complexus/proc/set_cooldown(var/value)
+/datum/psi_complexus/proc/set_cooldown(value)
 	next_power_use = world.time + value
 	ui.update_icon()
 
@@ -43,7 +43,7 @@
 /datum/psi_complexus/proc/can_use(var/incapacitation_flags)
 	return (owner.stat == CONSCIOUS && (!incapacitation_flags || !owner.incapacitated(incapacitation_flags)) && !suppressed && !stun && world.time >= next_power_use)
 
-/datum/psi_complexus/proc/spend_power(var/value = 0, var/check_incapacitated)
+/datum/psi_complexus/proc/spend_power(value = 0, check_incapacitated)
 	. = FALSE
 	if(isnull(check_incapacitated))
 		check_incapacitated = (INCAPACITATION_STUNNED|INCAPACITATION_KNOCKOUT)

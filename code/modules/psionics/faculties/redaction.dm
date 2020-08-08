@@ -8,14 +8,14 @@
 	faculty = PSI_REDACTION
 	admin_log = FALSE
 
-/decl/psionic_power/redaction/proc/check_dead(var/mob/living/target)
+/decl/psionic_power/redaction/proc/check_dead(mob/living/target)
 	if(!istype(target))
 		return FALSE
 	if(target.stat == DEAD || (target.status_flags & FAKEDEATH))
 		return TRUE
 	return FALSE
 
-/decl/psionic_power/redaction/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/redaction/invoke(mob/living/user, mob/living/target)
 	if(check_dead(target))
 		return FALSE
 	. = ..()

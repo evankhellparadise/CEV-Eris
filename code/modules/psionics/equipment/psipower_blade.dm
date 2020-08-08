@@ -5,6 +5,8 @@
 	edge = TRUE
 	maintain_cost = 1
 	icon_state = "psiblade_short"
+	tool_qualities = list(QUALITY_CUTTING = 30,  QUALITY_WIRE_CUTTING = 20, QUALITY_LASER_CUTTING = 20)
+
 
 /obj/item/psychic_power/psiblade/master
 	force = 20

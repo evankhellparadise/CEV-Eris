@@ -143,7 +143,7 @@
 	min_rank =      PSI_RANK_PARAMOUNT
 	use_description = "Grab a victim, target the eyes, then use the grab on them while on disarm intent, in order to convert them into a loyal mind-slave. The process takes some time, and failure is punished harshly."
 
-/decl/psionic_power/coercion/mindslave/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/coercion/mindslave/invoke(mob/living/user, mob/living/target)
 	if(!istype(target) || user.zone_sel.selecting != BP_EYES)
 		return FALSE
 	. = ..()
@@ -176,7 +176,7 @@
 	min_rank =        PSI_RANK_OPERANT
 	use_description = "Grab a patient, target the head, then use the grab on them while on disarm intent, in order to perform a deep coercive-redactive probe of their psionic potential."
 
-/decl/psionic_power/coercion/assay/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/coercion/assay/invoke(mob/living/user, mob/living/target)
 	if(user.zone_sel.selecting != BP_HEAD)
 		return FALSE
 	. = ..()
@@ -200,7 +200,7 @@
 	min_rank =      PSI_RANK_OPERANT
 	use_description = "Grab a patient, target the mouth, then use the grab on them while on disarm intent, in order to cure ailments of the mind."
 
-/decl/psionic_power/coercion/focus/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/coercion/focus/invoke(mob/living/user, mob/living/target)
 	if(user.zone_sel.selecting != BP_MOUTH)
 		return FALSE
 	. = ..()

@@ -4,7 +4,6 @@
 	force = 1
 	var/emulating = "Crowbar"
 	tool_qualities = list(QUALITY_PRYING = 25)
-	maintain_cost = 1
 
 /obj/item/psychic_power/tinker/attack_self()
 

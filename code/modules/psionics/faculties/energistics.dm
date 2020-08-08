@@ -34,7 +34,7 @@
 	min_rank =        PSI_RANK_GRANDMASTER
 	use_description = "Target the chest or groin while on harm intent to use a melee attack that electrocutes a victim."
 
-/decl/psionic_power/energistics/electrocute/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/energistics/electrocute/invoke(mob/living/user, mob/living/target)
 	if(user.zone_sel.selecting != BP_CHEST && user.zone_sel.selecting != BP_GROIN)
 		return FALSE
 	if(istype(target, /turf))
