@@ -55,9 +55,9 @@
 
 		else if(href_list["change_mode"])
 			var/obj/item/weapon/implant/psi_control/implant = locate(href_list["change_mode"])
-			if(implant.imp_in && !implant.malfunction)
+			if(implant.wearer && !implant.malfunction)
 				var/choice = input("Select a new implant mode.", "Psi Dampener") as null|anything in list(PSI_IMPLANT_AUTOMATIC, PSI_IMPLANT_SHOCK, PSI_IMPLANT_WARN, PSI_IMPLANT_LOG, PSI_IMPLANT_DISABLED)
-				if(choice && implant && implant.imp_in && !implant.malfunction)
+				if(choice && implant && implant.wearer && !implant.malfunction)
 					implant.psi_mode = choice
 					implant.update_functionality()
 					. = 1
@@ -83,9 +83,9 @@
 	dat += "<tr><td><b>Operant</b></td><td><b>System load</b></td><td><b>Mode</b></td></tr>"
 	for(var/thing in SSpsi.psi_dampeners)
 		var/obj/item/weapon/implant/psi_control/implant = thing
-		if(!implant.imp_in)
+		if(!implant.wearer)
 			continue
-		dat += "<tr><td>[implant.imp_in.name]</td>"
+		dat += "<tr><td>[implant.wearer.name]</td>"
 		if(implant.malfunction)
 			dat += "<td>ERROR</td><td>ERROR</td>"
 		else
@@ -111,7 +111,7 @@
 
 
 /obj/machinery/psi_monitor/proc/report_failure(var/obj/item/weapon/implant/psi_control/implant)
-	psi_violations += "<font color='#FF0000'>Critical system failure - [implant.imp_in.name].</font>"
+	psi_violations += "<font color='#FF0000'>Critical system failure - [implant.wearer.name].</font>"
 
 /obj/machinery/psi_monitor/proc/report_violation(var/obj/item/weapon/implant/psi_control/implant, var/stress)
-	psi_violations += "Sigma [round(stress/10)] event - [implant.imp_in.name]."
+	psi_violations += "Sigma [round(stress/10)] event - [implant.wearer.name]."
