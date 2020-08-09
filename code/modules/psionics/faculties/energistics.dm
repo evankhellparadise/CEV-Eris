@@ -16,7 +16,7 @@
 	use_description = "Target the head, eyes or mouth while on harm intent to use a melee attack that causes a localized electromagnetic pulse."
 
 /decl/psionic_power/energistics/disrupt/invoke(var/mob/living/user, var/mob/living/target)
-	if(user.zone_sel.selecting != BP_HEAD && user.zone_sel.selecting != BP_EYES && user.zone_sel.selecting != BP_MOUTH)
+	if(user.targeted_organ != BP_HEAD && user.targeted_organ != BP_EYES && user.targeted_organ != BP_MOUTH)
 		return FALSE
 	if(istype(target, /turf))
 		return FALSE
@@ -35,7 +35,7 @@
 	use_description = "Target the chest or groin while on harm intent to use a melee attack that electrocutes a victim."
 
 /decl/psionic_power/energistics/electrocute/invoke(mob/living/user, mob/living/target)
-	if(user.zone_sel.selecting != BP_CHEST && user.zone_sel.selecting != BP_GROIN)
+	if(user.targeted_organ != BP_CHEST && user.targeted_organ != BP_GROIN)
 		return FALSE
 	if(istype(target, /turf))
 		return FALSE
@@ -43,7 +43,7 @@
 	if(.)
 		user.visible_message("<span class='danger'>\The [user] sends a jolt of electricity arcing into \the [target]!</span>")
 		if(istype(target))
-			target.electrocute_act(rand(15,45), user, 1, user.zone_sel.selecting)
+			target.electrocute_act(rand(15,45), user, 1, user.targeted_organ)
 			return TRUE
 		else if(isatom(target))
 			var/obj/item/weapon/cell/charging_cell = target.get_cell()
@@ -88,7 +88,7 @@
 			pew.current = target
 			pew.starting = get_turf(user)
 			pew.shot_from = user
-			pew.launch(target, user.zone_sel.selecting, (target.x-user.x), (target.y-user.y))
+			pew.launch(target, user.targeted_organ, (target.x-user.x), (target.y-user.y))
 			return TRUE
 
 /decl/psionic_power/energistics/spark

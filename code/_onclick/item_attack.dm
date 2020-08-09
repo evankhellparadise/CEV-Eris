@@ -53,10 +53,10 @@ avoid code duplication. This includes items that may sometimes act as a standard
 		visible_message(SPAN_DANGER("[src] has been hit by [user] with [I]."))
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 
-/obj/item/attackby(obj/item/I, mob/living/user, var/params)
+/obj/item/attackby(obj/item/I, mob/living/user, params)
 	return
 
-/mob/living/attackby(obj/item/I, mob/living/user, var/params)
+/mob/living/attackby(obj/item/I, mob/living/user, params)
 	if(!ismob(user))
 		return FALSE
 	if(can_operate(src, user) && do_surgery(src, user, I)) //Surgery
@@ -69,7 +69,7 @@ avoid code duplication. This includes items that may sometimes act as a standard
 	return
 
 //I would prefer to rename this attack_as_weapon(), but that would involve touching hundreds of files.
-/obj/item/proc/attack(mob/living/M, mob/living/user, var/target_zone)
+/obj/item/proc/attack(mob/living/M, mob/living/user, target_zone)
 	if(!force || (flags & NOBLUDGEON))
 		return FALSE
 
