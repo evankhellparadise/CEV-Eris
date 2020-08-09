@@ -59,6 +59,7 @@
 #define COLOR_CIVIE_GREEN      "#b7f27d"
 #define COLOR_TITANIUM         "#d1e6e3"
 #define COLOR_DARK_GUNMETAL    "#4c535b"
+#define COLOR_NULLGLASS        "#ff6088"
 
 #define	PIPE_COLOR_GREY		"#e4e7ea"	//yes white is grey
 #define	PIPE_COLOR_RED		"#c1293f"

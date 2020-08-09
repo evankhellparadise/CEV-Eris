@@ -29,6 +29,7 @@
 #define MATERIAL_RESIN "resin"
 #define MATERIAL_CARPET "carpet"
 #define MATERIAL_BIOMATTER "biomatter"
+#define MATERIAL_NULLGLASS "nullglass"
 
 #define MATERIAL_LIST list(\
 	MATERIAL_STEEL,\
