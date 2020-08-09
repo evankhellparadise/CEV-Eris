@@ -53,11 +53,11 @@
 
 /obj/item/weapon/implant/psi_control/proc/get_psi_mode()
 	if(psi_mode == PSI_IMPLANT_AUTOMATIC)
-		var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+		var/decl/security_state/security_state = decls_repository.get_decl(GLOB.maps_data.security_state)
 		return security_state.current_security_level.psionic_control_level
 	return psi_mode
 
-/obj/item/weapon/implant/psi_control/withstand_psi_stress(var/stress, var/atom/source)
+/obj/item/weapon/implant/psi_control/withstand_psi_stress(stress, atom/source)
 
 	var/use_psi_mode = get_psi_mode()
 
@@ -96,7 +96,8 @@
 				return stress
 			else if(use_psi_mode == PSI_IMPLANT_SHOCK)
 				to_chat(wearer, SPAN_DANGER("Your psi dampener punishes you with a violent neural shock!"))
-				wearer.flash_eyes()
+				if (wearer.HUDtech.Find("flash"))
+					flick("e_flash", M.HUDtech["flash"])
 				wearer.Weaken(5)
 				if(isliving(wearer))
 					var/mob/living/M = wearer
