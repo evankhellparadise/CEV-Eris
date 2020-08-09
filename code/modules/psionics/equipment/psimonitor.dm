@@ -2,7 +2,7 @@
 	name = "psionic implant monitor"
 	icon = 'icons/obj/machines/psimeter.dmi'
 	icon_state = "meter_on"
-	use_power = POWER_USE_ACTIVE
+	use_power = ACTIVE_POWER_USE
 	anchored = TRUE
 	density = TRUE
 	opacity = FALSE
