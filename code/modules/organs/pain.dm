@@ -11,15 +11,20 @@ mob/var/next_pain_time = 0
 
 // partname is the name of a body part
 // amount is a num from 1 to 100
-mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
+/mob/living/carbon/proc/can_feel_pain()
 	if(stat >= UNCONSCIOUS)
-		return
+		return FALSE
 	if(species && (species.flags & NO_PAIN))
-		return
+		return FALSE
 	if(analgesic > 40)
-		return
+		return FALSE
+	return TRUE
+
+mob/living/carbon/proc/pain(partname, amount, force, burning = 0)
+	if(!can_feel_pain())
+		return FALSE
 	if(world.time < next_pain_time && !force)
-		return
+		return FALSE
 	if(amount > 10 && ishuman(src))
 		if(src:paralysis)
 			src:paralysis = max(0, src:paralysis-round(amount/10))
@@ -51,21 +56,36 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 		to_chat(src, msg)
 	next_pain_time = world.time + (100 - amount)
 
+/mob/living/carbon/human/can_feel_pain(obj/item/organ/check_organ)
+	if(stat > UNCONSCIOUS)
+		return FALSE
+	if(species.flags & NO_PAIN)
+		return FALSE
+	if(analgesic >= 100)
+		return FALSE
+	if(check_organ)
+		if(!istype(check_organ))
+			return FALSE
+		return check_organ.can_feel_pain()
+	else
+		for(var/obj/item/organ/I in internal_organs)
+			if(I.can_feel_pain())
+				return TRUE
+		return FALSE
+	return TRUE
+
 
 // message is the custom message to be displayed
 // flash_strength is 0 for weak pain flash, 1 for strong pain flash
 mob/living/carbon/human/proc/custom_pain(message, flash_strength)
-	if(stat >= UNCONSCIOUS)
-		return
-	if(species.flags & NO_PAIN)
-		return
-
-	if(analgesic >= 100)
-		return
+	if(!can_feel_pain())
+		return FALSE
+	else if(stat >= UNCONSCIOUS)
+		return FALSE
 	else if(analgesic >= 50)
 		flash_strength -= 1
 		if(flash_strength < 0)
-			return
+			return	FALSE
 
 	var/msg = "\red <b>[message]</b>"
 	if(flash_strength >= 1)
@@ -78,14 +98,11 @@ mob/living/carbon/human/proc/custom_pain(message, flash_strength)
 	next_pain_time = world.time + 100
 
 mob/living/carbon/human/proc/handle_pain()
-	// not when sleeping
+	if(!can_feel_pain())
+		return FALSE
 
-	if(species.flags & NO_PAIN) return
-
-	if(stat >= DEAD)
-		return
 	if(analgesic > 70)
-		return
+		return FALSE
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
 	for(var/obj/item/organ/external/E in organs)
