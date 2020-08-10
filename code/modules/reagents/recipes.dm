@@ -174,7 +174,7 @@
 	return reaction_progress
 
 //called when a reaction processes
-/datum/chemical_reaction/proc/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	if(thermal_product)
 		holder.chem_temp += thermal_product
 	var/datum/reagents/to_splash = new()

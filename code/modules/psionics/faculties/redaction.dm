@@ -106,7 +106,7 @@
 
 		if(redaction_rank >= PSI_RANK_GRANDMASTER)
 			for(var/obj/item/organ/internal/I in E.internal_organs)
-				if(!BP_IS_ROBOTIC(I) && !BP_IS_CRYSTAL(I) && I.damage > 0)
+				if(!BP_IS_ROBOTIC(I) && I.damage > 0)
 					to_chat(user, SPAN_NOTICE("You encourage the damaged tissue of \the [I] to repair itself."))
 					var/heal_rate = redaction_rank
 					I.damage = max(0, I.damage - rand(heal_rate,heal_rate*2))
@@ -175,7 +175,7 @@
 			user.psi.backblast(rand(10,25))
 			return TRUE
 
-		for(var/mob/observer/G in GLOB.dead_mob_list_)
+		for(var/mob/observer/G in GLOB.dead_mob_list)
 			if(G.mind && G.mind.current == target && G.client)
 				to_chat(G, SPAN_NOTICE("<font size = 3><b>Your body has been revived, <b>Re-Enter Corpse</b> to return to it.</b></font>"))
 				break

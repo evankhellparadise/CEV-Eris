@@ -59,6 +59,8 @@
 #define isblitzshell(A) istype(A, /mob/living/silicon/robot/drone/blitzshell)
 
 //-----------------Objects
+#define isatom(A) isloc(A)
+
 #define ismovable(A) istype(A, /atom/movable)
 
 #define isobj(A) istype(A, /obj)

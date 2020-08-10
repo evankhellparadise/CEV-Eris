@@ -21,7 +21,7 @@
 
 	UNSETEMPTY(latencies)
 	var/rank_count = max(1, LAZYLEN(ranks))
-	if(force || last_rating != ceil(combined_rank/rank_count))
+	if(force || last_rating != CEIL(combined_rank/rank_count))
 		if(highest_rank <= 1)
 			if(highest_rank == 0)
 				qdel(src)
@@ -29,7 +29,7 @@
 		else
 			rebuild_power_cache = TRUE
 			sound_to(owner, 'sound/effects/psi/power_unlock.ogg')
-			rating = ceil(combined_rank/rank_count)
+			rating = CEIL(combined_rank/rank_count)
 			cost_modifier = 1
 			if(rating > 1) 
 				cost_modifier -= min(1, max(0.1, (rating-1) / 10))
@@ -174,7 +174,7 @@
 			if(heal_internal)
 				for(var/obj/item/organ/I in H.internal_organs)
 
-					if(BP_IS_ROBOTIC(I) || BP_IS_CRYSTAL(I))
+					if(BP_IS_ROBOTIC(I))
 						continue
 
 					if(I.damage > 0 && spend_power(heal_rate))

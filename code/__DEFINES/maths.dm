@@ -16,6 +16,8 @@
 
 #define SIGN(x) ( x < 0 ? -1  : 1 )
 
+#define CEIL(x) (-round(-(x)))
+
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
 
 // round() acts like floor(x, 1) by default but can't handle other values
