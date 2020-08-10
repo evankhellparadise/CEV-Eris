@@ -70,7 +70,7 @@
 
 		// If we're disrupting psionic attempts at the moment, we might overload.
 		if(disrupts_psionics())
-			var/overload_amount = Floor(stress/10)
+			var/overload_amount = round(stress/10)
 			if(overload_amount > 0)
 				overload += overload_amount
 				if(overload >= 100)
@@ -97,7 +97,7 @@
 			else if(use_psi_mode == PSI_IMPLANT_SHOCK)
 				to_chat(wearer, SPAN_DANGER("Your psi dampener punishes you with a violent neural shock!"))
 				if (wearer.HUDtech.Find("flash"))
-					flick("e_flash", M.HUDtech["flash"])
+					flick("e_flash", wearer.HUDtech["flash"])
 				wearer.Weaken(5)
 				if(isliving(wearer))
 					var/mob/living/M = wearer

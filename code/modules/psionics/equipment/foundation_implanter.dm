@@ -12,5 +12,5 @@
 		to_chat(user, "<span class='warning'>The implanter reports there is no compatible implant loaded.</span>")
 		return
 	imp.psi_mode = choice
-	to_chat(user, "<span class='notice'>You set \the [src] to configure implants with the '[implant.psi_mode]' setting.</span>")
+	to_chat(user, "<span class='notice'>You set \the [src] to configure implants with the '[imp.psi_mode]' setting.</span>")
 

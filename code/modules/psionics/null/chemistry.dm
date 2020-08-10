@@ -1,16 +1,12 @@
 /datum/chemical_reaction/nullglass
-	name = "Soulstone"
+	//name = "Soulstone"
 	result = null
-	required_reagents = list("blood" = 15, /datum/reagent/crystal = 1)
+	required_reagents = list("blood" = 15, "crystal" = 1)
 	result_amount = 1
-
-/datum/chemical_reaction/nullglass/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume*2, i++)
-		new /obj/item/weapon/material/shard(location, MATERIAL_CRYSTAL)
 
 /datum/reagent/crystal
 	name = "crystallizing agent"
+	id = "crystal"
 	taste_description = "sharpness"
 	reagent_state = LIQUID
 	color = "#13bc5e"
