@@ -7,7 +7,7 @@ meteor_act
 
 */
 
-/mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
 	def_zone = check_zone(def_zone)
 	if(!has_organ(def_zone))
@@ -90,7 +90,7 @@ meteor_act
 		visible_message(SPAN_WARNING("[src] stumbles around."))
 
 
-/mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone)
+/mob/living/carbon/human/stun_effect_act(stun_amount, agony_amount, def_zone)
 
 	var/obj/item/organ/external/affected = get_organ(check_zone(def_zone))
 
@@ -116,7 +116,21 @@ meteor_act
 
 	..(stun_amount, agony_amount, def_zone)
 
-/mob/living/carbon/human/getarmor(var/def_zone, var/type)
+
+/mob/living/carbon/human/get_blocked_ratio(def_zone, damage_type, damage_flags, armor_pen, damage)
+	if(!def_zone)
+		var/tally
+		for(var/zone in organ_rel_size)
+			tally += organ_rel_size[zone]
+		for(var/zone in organ_rel_size)
+			def_zone = zone
+			. += .() * organ_rel_size/tally
+
+		return
+	return ..()
+
+
+/mob/living/carbon/human/getarmor(def_zone, type)
 	var/armorval = 0
 	var/total = 0
 
@@ -141,7 +155,7 @@ meteor_act
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
 	if (!def_zone)
-		return 1.0
+		return 1
 
 	var/siemens_coefficient = species.siemens_coefficient
 
@@ -153,7 +167,7 @@ meteor_act
 	return siemens_coefficient
 
 //this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(var/obj/item/organ/external/def_zone, var/type)
+/mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone) return 0
 	var/protection = 0
 	var/list/protective_gear = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes)
@@ -183,14 +197,14 @@ meteor_act
 			return gear
 	return null
 
-/mob/living/carbon/human/proc/check_shields(var/damage = 0, var/atom/damage_source = null, var/mob/attacker = null, var/def_zone = null, var/attack_text = "the attack")
+/mob/living/carbon/human/proc/check_shields(damage = 0, atom/damage_source = null, mob/attacker = null, def_zone = null, attack_text = "the attack")
 	for(var/obj/item/shield in list(l_hand, r_hand, wear_suit))
 		if(!shield) continue
 		. = shield.handle_shield(src, damage, damage_source, attacker, def_zone, attack_text)
 		if(.) return
 	return 0
 
-/mob/living/carbon/human/resolve_item_attack(obj/item/I, mob/living/user, var/target_zone)
+/mob/living/carbon/human/resolve_item_attack(obj/item/I, mob/living/user, target_zone)
 	if(check_attack_throat(I, user))
 		return null
 
@@ -213,7 +227,7 @@ meteor_act
 
 	return hit_zone
 
-/mob/living/carbon/human/hit_with_weapon(obj/item/I, mob/living/user, var/effective_force, var/hit_zone)
+/mob/living/carbon/human/hit_with_weapon(obj/item/I, mob/living/user, effective_force, hit_zone)
 	var/obj/item/organ/external/affecting = get_organ(hit_zone)
 	if(!affecting)
 		return FALSE//should be prevented by attacked_with_item() but for sanity.
@@ -224,7 +238,7 @@ meteor_act
 
 	return TRUE
 
-/mob/living/carbon/human/standard_weapon_hit_effects(obj/item/I, mob/living/user, var/effective_force, var/hit_zone)
+/mob/living/carbon/human/standard_weapon_hit_effects(obj/item/I, mob/living/user, effective_force, hit_zone)
 	var/obj/item/organ/external/affecting = get_organ(hit_zone)
 	if(!affecting)
 		return FALSE
@@ -293,7 +307,7 @@ meteor_act
 
 	return TRUE
 
-/mob/living/carbon/human/proc/attack_joint(var/obj/item/organ/external/organ, var/obj/item/W)
+/mob/living/carbon/human/proc/attack_joint(obj/item/organ/external/organ, obj/item/W)
 	if(!organ || (organ.dislocated == 2) || (organ.dislocated == -1) )
 		return FALSE
 	//There was blocked var, removed now. For the sake of game balance, it was just replaced by 2
@@ -304,7 +318,7 @@ meteor_act
 	return FALSE
 
 //this proc handles being hit by a thrown atom
-/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = THROWFORCE_SPEED_DIVISOR)
+/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj, speed = THROWFORCE_SPEED_DIVISOR)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
 
@@ -405,7 +419,7 @@ meteor_act
 					src.anchored = TRUE
 					src.pinned += O
 
-/mob/living/carbon/human/embed(var/obj/O, var/def_zone=null)
+/mob/living/carbon/human/embed(obj/O, def_zone=null)
 	if(!def_zone) ..()
 
 	var/obj/item/organ/external/affecting = get_organ(def_zone)
@@ -413,7 +427,7 @@ meteor_act
 		affecting.embed(O)
 
 
-/mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
+/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 	if (gloves)
 		gloves.add_blood(source)
 		gloves:transfer_blood = amount
@@ -424,7 +438,7 @@ meteor_act
 		bloody_hands_mob = source
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
-/mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
+/mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_blood(source)
 		update_inv_wear_suit(0)
@@ -432,7 +446,7 @@ meteor_act
 		w_uniform.add_blood(source)
 		update_inv_w_uniform(0)
 
-/mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage, var/def_zone)
+/mob/living/carbon/human/proc/handle_suit_punctures(damtype, damage, def_zone)
 
 	// Tox and oxy don't matter to suits.
 	if(damtype != BURN && damtype != BRUTE) return

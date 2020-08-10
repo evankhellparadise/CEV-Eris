@@ -472,7 +472,7 @@ default behaviour is:
 	failed_last_breath = 0 //So mobs that died of oxyloss don't revive and have perpetual out of breath.
 	reload_fullscreen()
 
-/mob/living/carbon/basic_revival(repair_brain = TRUE)
+/mob/living/carbon/human/basic_revival(repair_brain = TRUE)
 	if(repair_brain && should_have_organ(BP_BRAIN))
 		repair_brain = FALSE
 		var/obj/item/organ/internal/brain/brain = internal_organs_by_name[BP_BRAIN]
