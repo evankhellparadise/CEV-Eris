@@ -361,6 +361,14 @@
 		. = 1 - (1 - .) * (1 - armor_datum.get_blocked(damage_type, damage_flags, armor_pen, damage)) // multiply the amount we let through
 	. = min(1, .)
 
+/mob/living/proc/get_armors_by_zone(def_zone, damage_type, damage_flags)
+	. = list()
+	var/natural_armor = get_extension(src, /datum/extension/armor)
+	if(natural_armor)
+		. += natural_armor
+	if(psi)
+		. += get_extension(psi, /datum/extension/armor)
+
 /mob/living/update_action_buttons()
 	if(!hud_used) return
 	if(!client) return
