@@ -11,7 +11,8 @@
 	var/list/last_assay
 	var/mob/living/last_assayed
 
-/obj/machinery/psi_meter/on_update_icon()
+/obj/machinery/psi_meter/update_icon()
+	..()
 	if(use_power && !(stat & (NOPOWER|BROKEN)))
 		icon_state = "meter_on"
 	else

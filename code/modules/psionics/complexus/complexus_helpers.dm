@@ -46,7 +46,7 @@
 /datum/psi_complexus/proc/spend_power(value = 0, check_incapacitated)
 	. = FALSE
 	if(isnull(check_incapacitated))
-		check_incapacitated = (INCAPACITATION_STUNNED|INCAPACITATION_KNOCKOUT)
+		check_incapacitated = (INCAPACITATION_STUNNED|INCAPACITATION_UNCONSCIOUS)
 	if(can_use(check_incapacitated))
 		value = max(1, CEIL(value * cost_modifier))
 		if(value <= stamina)
