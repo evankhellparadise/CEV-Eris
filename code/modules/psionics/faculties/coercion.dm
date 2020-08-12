@@ -2,12 +2,12 @@
 	id = PSI_COERCION
 	name = "Coercion"
 	associated_intent = I_DISARM
-	armour_types = list(PSIONIC)
+	armour_types = list(PSY)
 
 /decl/psionic_power/coercion
 	faculty = PSI_COERCION
 
-/decl/psionic_power/coercion/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/coercion/invoke(mob/living/user, mob/living/target)
 	if (!istype(target))
 		to_chat(user, SPAN_WARNING("You cannot mentally attack \the [target]."))
 		return FALSE
@@ -35,7 +35,7 @@
 		for(var/mob/living/M in orange(user, user.psi.get_rank(PSI_COERCION)))
 			if(M == user)
 				continue
-			var/blocked = 100 * M.get_blocked_ratio(null, PSIONIC)
+			var/blocked = 100 * M.get_blocked_ratio(null, PSY)
 			if(prob(blocked))
 				to_chat(M, SPAN_DANGER("A psionic onslaught strikes your mind, but you withstand it!"))
 				continue
@@ -59,7 +59,7 @@
 	min_rank =        PSI_RANK_OPERANT
 	use_description = "Target the head on disarm intent at melee range to attempt to read a victim's surface thoughts."
 
-/decl/psionic_power/coercion/mindread/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/coercion/mindread/invoke(mob/living/user, mob/living/target)
 	if(!isliving(target) || !istype(target) || user.targeted_organ != BP_HEAD)
 		return FALSE
 	. = ..()
@@ -116,7 +116,7 @@
 	min_rank =       PSI_RANK_MASTER
 	use_description = "Target the arms or hands on disarm intent to use a ranged attack that may rip the weapons away from the target."
 
-/decl/psionic_power/coercion/spasm/invoke(var/mob/living/user, var/mob/living/carbon/human/target)
+/decl/psionic_power/coercion/spasm/invoke(mob/living/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return FALSE
 
