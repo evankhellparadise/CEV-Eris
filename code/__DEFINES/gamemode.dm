@@ -56,6 +56,7 @@
 #define ROLE_TRAITOR "traitor"
 #define ROLE_TRAITOR_SYNTH "robo_traitor"
 #define ROLE_MARSHAL "marshal"
+#define ROLE_THRALL "mind thrall"
 
 #define ROLE_EXCELSIOR_REV "excelsior_rev"
 
