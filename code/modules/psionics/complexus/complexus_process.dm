@@ -197,17 +197,6 @@
 								return
 
 					if(heal_bleeding)
-
-						if((E.status & ORGAN_ARTERY_CUT) && spend_power(heal_rate))
-							to_chat(H, SPAN_NOTICE("Your autoredactive faculty mends the torn artery in your [E.name], stemming the worst of the bleeding."))
-							E.status &= ~ORGAN_ARTERY_CUT
-							return
-
-						if(E.status & ORGAN_TENDON_CUT)
-							to_chat(H, SPAN_NOTICE("Your autoredactive faculty repairs the severed tendon in your [E.name]."))
-							E.status &= ~ORGAN_TENDON_CUT
-							return TRUE
-
 						for(var/datum/wound/W in E.wounds)
 
 							if(W.bleeding() && spend_power(heal_rate))

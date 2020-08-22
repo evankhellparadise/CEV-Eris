@@ -34,7 +34,7 @@
 	. = ..()
 	if(.)
 		user.visible_message(SPAN_NOTICE("\The [user] rests a hand on \the [target]."))
-		to_chat(user, medical_scan_results(target, TRUE, SKILL_MAX))
+		to_chat(user, medical_scan_results(target, TRUE))
 		return TRUE
 
 /decl/psionic_power/redaction/mend
@@ -79,14 +79,6 @@
 				return TRUE
 
 		if(redaction_rank >= PSI_RANK_MASTER)
-			if(E.status & ORGAN_ARTERY_CUT)
-				to_chat(user, SPAN_NOTICE("You painstakingly mend the torn veins in \the [E], stemming the internal bleeding."))
-				E.status &= ~ORGAN_ARTERY_CUT
-				return TRUE
-			if(E.status & ORGAN_TENDON_CUT)
-				to_chat(user, SPAN_NOTICE("You interleave and repair the severed tendon in \the [E]."))
-				E.status &= ~ORGAN_TENDON_CUT
-				return TRUE
 			if(E.status & ORGAN_BROKEN)
 				to_chat(user, SPAN_NOTICE("You coax shattered bones to come together and fuse, mending the break."))
 				E.status &= ~ORGAN_BROKEN

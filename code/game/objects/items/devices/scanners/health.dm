@@ -10,7 +10,7 @@
 	matter = list(MATERIAL_PLASTIC = 2, MATERIAL_GLASS = 1)
 	origin_tech = list(TECH_MAGNET = 1, TECH_BIO = 1)
 
-	var/mode = 1
+	var/mode = TRUE
 
 	window_width = 600
 	window_height = 400
@@ -29,13 +29,12 @@
 	set category = "Object"
 
 	mode = !mode
-	switch (mode)
-		if(1)
-			to_chat(usr, "The scanner now shows specific limb damage.")
-		if(0)
-			to_chat(usr, "The scanner no longer shows limb damage.")
+	if(mode)
+		to_chat(usr, "The scanner now shows specific limb damage.")
+	if(!mode)
+		to_chat(usr, "The scanner no longer shows limb damage.")
 
-/proc/medical_scan_action(atom/target, mob/living/user, obj/scanner, var/mode)
+/proc/medical_scan_action(atom/target, mob/living/user, obj/scanner, mode)
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You are not nimble enough to use this device."))
 		return
@@ -78,7 +77,7 @@
 	user.visible_message(SPAN_NOTICE("[user] has analyzed [target]'s vitals."),SPAN_NOTICE("You have analyzed [target]'s vitals."))
 	. = medical_scan_results(scan_subject, mode)
 
-/proc/medical_scan_results(var/mob/living/M, var/mode)
+/proc/medical_scan_results(mob/living/M, mode)
 	. = list()
 	var/dat = list()
 	if (!ishuman(M) || M.isSynthetic())
@@ -107,7 +106,7 @@
 	dat += span("highlight", "Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)")
 	if(M.tod && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
 		dat += span("highlight", "Time of Death: [M.tod]")
-	if(ishuman(M) && mode == 1)
+	if(ishuman(M) && mode)
 		var/mob/living/carbon/human/H = M
 		var/list/damaged = H.get_damaged_organs(1, 1)
 		dat += span("highlight", "Localized Damage, Brute/Burn:")
