@@ -73,6 +73,9 @@ avoid code duplication. This includes items that may sometimes act as a standard
 	if(!force || (flags & NOBLUDGEON))
 		return FALSE
 
+	if(!user)
+		return FALSE
+
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
