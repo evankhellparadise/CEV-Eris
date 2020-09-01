@@ -116,20 +116,6 @@ meteor_act
 
 	..(stun_amount, agony_amount, def_zone)
 
-
-/mob/living/carbon/human/get_blocked_ratio(def_zone, damage_type, damage_flags, armor_pen, damage)
-	if(!def_zone)
-		var/tally
-		for(var/zone in organ_rel_size)
-			tally += organ_rel_size[zone]
-		for(var/zone in organ_rel_size)
-			def_zone = zone
-			. += .() * organ_rel_size/tally
-
-		return
-	return ..()
-
-
 /mob/living/carbon/human/getarmor(def_zone, type)
 	var/armorval = 0
 	var/total = 0

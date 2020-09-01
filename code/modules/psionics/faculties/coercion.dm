@@ -155,7 +155,7 @@
 		if(!target.mind || !target.key)
 			to_chat(user, "<span class='warning'>\The [target] is mindless!</span>")
 			return TRUE
-		if(GLOB.thralls.is_antagonist(target.mind))
+		if(player_is_antag_id(target.mind, ROLE_THRALL))
 			to_chat(user, "<span class='warning'>\The [target] is already in thrall to someone!</span>")
 			return TRUE
 		user.visible_message("<span class='danger'><i>\The [user] seizes the head of \the [target] in both hands...</i></span>")

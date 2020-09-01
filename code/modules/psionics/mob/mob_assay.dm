@@ -24,11 +24,7 @@
 			effective_rating = max(0, psi.rating-2)
 		var/rating_descriptor
 		if(mind && !psi.suppressed)
-			if(GLOB.paramounts.is_antagonist(mind))
-				use_rating = "<font color = '#FF0000'><b>[effective_rating]-Alpha-Plus</b></font>"
-				rating_descriptor = "This indicates a completely deviant psi complexus, either beyond or outside anything currently recorded. Approach with care."
-			// This space intentionally left blank (for Omega-Minus psi vampires. todo)
-			if(viewer != usr && GLOB.thralls.is_antagonist(mind) && ishuman(viewer))
+			if(viewer != usr && player_is_antag_id(mind, ROLE_THRALL) && ishuman(viewer))
 				var/mob/living/H = viewer
 				if(H.psi && H.psi.get_rank(PSI_REDACTION) >= PSI_RANK_GRANDMASTER)
 					dat += "<font color='#FF0000'><b>Their mind has been cored like an apple, and enslaved by another operant psychic.</b></font>"
