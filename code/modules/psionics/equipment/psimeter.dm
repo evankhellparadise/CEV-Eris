@@ -18,11 +18,7 @@
 	else
 		icon_state = "meter_off"
 
-/obj/machinery/psi_meter/interface_interact(mob/user)
-	interact(user)
-	return TRUE
-
-/obj/machinery/psi_meter/interact(mob/user)
+/obj/machinery/psi_meter/ui_interact(mob/user)
 
 	if(!use_power) return
 

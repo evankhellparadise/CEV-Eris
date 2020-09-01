@@ -166,7 +166,7 @@
 			return TRUE
 		to_chat(user, "<span class='danger'>You sear through \the [target]'s neurons, reshaping as you see fit and leaving them subservient to your will!</span>")
 		to_chat(target, "<span class='danger'>Your defenses have eroded away and \the [user] has made you their mindslave.</span>")
-		GLOB.thralls.add_antagonist(target.mind, new_controller = user)
+		make_antagonist_trhall(target.mind, user)
 		return TRUE
 
 /decl/psionic_power/coercion/assay

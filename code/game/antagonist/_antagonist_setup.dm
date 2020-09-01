@@ -66,6 +66,17 @@ GLOBAL_LIST_EMPTY(faction_types)
 		if(istype(M) && A.create_antagonist(M))
 			return A
 
+/proc/make_antagonist_trhall(var/datum/mind/M, mob/living/master)
+	if(!master)
+		return
+	var/list/datum/antagonist/all_antag_types = GLOB.all_antag_types
+	if(all_antag_types[ROLE_THRALL])
+		var/a_type = all_antag_types[ROLE_THRALL].type
+		var/datum/antagonist/thrall/T = new a_type
+		T.controller = master
+		if(istype(M) && T.create_antagonist(M))
+			return T
+
 /proc/make_antagonist_faction(datum/mind/M, a_id, datum/faction/F, check = TRUE)
 	var/list/datum/antagonist/all_antag_types = GLOB.all_antag_types
 	if(all_antag_types[a_id])
@@ -81,7 +92,7 @@ GLOBAL_LIST_EMPTY(faction_types)
 			antag.faction.update_icons(antag)
 
 /proc/populate_antag_type_list()
-	for(var/antag_type in typesof(/datum/antagonist)-/datum/antagonist)
+	for(var/antag_type in subtypesof(/datum/antagonist))
 		var/datum/antagonist/A = new antag_type()
 		if(!A.id)
 			continue

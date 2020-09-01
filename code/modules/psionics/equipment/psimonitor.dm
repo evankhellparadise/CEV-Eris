@@ -65,11 +65,8 @@
 		if(. && usr)
 			interact(usr)
 
-/obj/machinery/psi_monitor/interface_interact(mob/user)
-	interact(user)
-	return TRUE
-
-/obj/machinery/psi_monitor/interact(mob/user)
+/obj/machinery/psi_monitor/ui_interacts(mob/user)
+	if(!use_power) return
 
 	var/list/dat = list()
 	dat += "<h1>Psi Dampener Monitor</h1>"

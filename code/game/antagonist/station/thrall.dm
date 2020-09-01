@@ -1,31 +1,24 @@
-GLOBAL_DATUM_INIT(thralls, /datum/antagonist/thrall, new)
-
 /datum/antagonist/thrall
 	role_text = "Thrall"
 	role_text_plural = "Thralls"
 	welcome_text = "Your mind is no longer solely your own..."
 	id = ROLE_THRALL
 	flags = ANTAG_IMPLANT_IMMUNE
+	var/mob/living/carbon/controller
 
-	var/list/thrall_controllers = list()
-
-/datum/antagonist/thrall/create_objectives(datum/mind/player)
-	var/mob/living/controller = thrall_controllers["\ref[player]"]
+/datum/antagonist/thrall/create_objectives(var/survive = FALSE)
 	if(!controller)
 		return // Someone is playing with buttons they shouldn't be.
-	var/datum/objective/obey = new
-	obey.owner = player
+	var/datum/objective/obey = new(src)
 	obey.explanation_text = "Obey your master, [controller.real_name], in all things."
-	player.objectives |= obey
+	.=..()
 
-/datum/antagonist/thrall/add_antagonist(datum/mind/player, ignore_role, do_not_equip, move_to_spawn, do_not_announce, preserve_appearance, mob/new_controller)
-	if(!new_controller)
-		return 0
-	. = ..()
-	if(.) thrall_controllers["\ref[player]"] = new_controller
+/datum/antagonist/thrall/create_antagonist(datum/mind/target, datum/faction/new_faction, doequip = TRUE, announce = TRUE, update = TRUE, check = TRUE)
+	if(!controller)
+		return FALSE // Someone is playing with buttons they shouldn't be.
+	.= ..()
 
-/datum/antagonist/thrall/greet(datum/mind/player)
+/datum/antagonist/thrall/greet()
 	. = ..()
-	var/mob/living/controller = thrall_controllers["\ref[player]"]
 	if(controller)
-		to_chat(player, SPAN_DANGER("Your will has been subjugated by that of [controller.real_name]. Obey them in all things."))
+		to_chat(owner.current, SPAN_DANGER("Your will has been subjugated by that of [controller.real_name]. Obey them in all things."))
