@@ -63,9 +63,9 @@
 					. = 1
 
 		if(. && usr)
-			interact(usr)
+			ui_interact(usr)
 
-/obj/machinery/psi_monitor/ui_interacts(mob/user)
+/obj/machinery/psi_monitor/ui_interact(mob/user)
 	if(!use_power) return
 
 	var/list/dat = list()
