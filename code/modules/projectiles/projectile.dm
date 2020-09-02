@@ -21,14 +21,14 @@
 	var/hitsound_wall = "ricochet"
 	var/list/mob_hit_sound = list('sound/effects/gore/bullethit2.ogg', 'sound/effects/gore/bullethit3.ogg') //Sound it makes when it hits a mob. It's a list so you can put multiple hit sounds there.
 	var/def_zone = ""	//Aiming at
-	var/mob/firer = null//Who shot it
+	var/mob/firer //Who shot it
 	var/silenced = FALSE	//Attack message
-	var/yo = null
-	var/xo = null
-	var/current = null
+	var/yo
+	var/xo
+	var/current
 	var/shot_from = "" // name of the object which shot us
-	var/atom/original = null // the target clicked (not necessarily where the projectile is headed). Should probably be renamed to 'target' or something.
-	var/turf/starting = null // the projectile's starting turf
+	var/atom/original // the target clicked (not necessarily where the projectile is headed). Should probably be renamed to 'target' or something.
+	var/turf/starting // the projectile's starting turf
 	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
 
 	var/p_x = 16
@@ -75,6 +75,7 @@
 	var/matrix/effect_transform			// matrix to rotate and scale projectile effects - putting it here so it doesn't
 										//  have to be recreated multiple times
 
+	var/shrapnel_type = /obj/item/weapon/material/shard/shrapnel
 
 /obj/item/projectile/is_hot()
 	if (damage_types[BURN])

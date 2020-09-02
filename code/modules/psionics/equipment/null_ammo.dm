@@ -1,7 +1,7 @@
 /obj/item/projectile/bullet/nullglass
 	name = "nullglass bullet"
 	damage_types = list(BRUTE = 40)
-	shrapnel_type = /obj/item/weapon/material/shard/nullglass
+	shrapnel_type = /obj/item/weapon/material/shard/shrapnel/nullglass
 
 /obj/item/projectile/bullet/nullglass/disrupts_psionics()
 	return src

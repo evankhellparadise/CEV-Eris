@@ -833,7 +833,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!H.unEquip(W))
 			return
 	if(!silent)
-		owner.visible_message("<span class='danger'>\The [W] sticks in the wound!</span>")
+		owner.visible_message(SPAN_DANGER("\The [W] sticks in the wound!"))
 	implants += W
 
 	if(!istype(W, /obj/item/weapon/material/shard/shrapnel))

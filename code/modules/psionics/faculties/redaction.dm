@@ -45,7 +45,7 @@
 	min_rank =        PSI_RANK_OPERANT
 	use_description = "Target a patient while on help intent at melee range to mend a variety of maladies, such as bleeding or broken bones. Higher ranks in this faculty allow you to mend a wider range of problems."
 
-/decl/psionic_power/redaction/mend/invoke(var/mob/living/user, var/mob/living/carbon/human/target)
+/decl/psionic_power/redaction/mend/invoke(mob/living/user, mob/living/carbon/human/target)
 	if(!istype(user) || !istype(target))
 		return FALSE
 	. = ..()
@@ -68,13 +68,14 @@
 		if(pk_rank >= PSI_RANK_LATENT && redaction_rank >= PSI_RANK_MASTER)
 			var/removal_size = CLAMP(5-pk_rank, 0, 5)
 			var/valid_objects = list()
-			for(var/thing in E.implants)
+			for(var/thing in target.get_visible_implants())
 				var/obj/imp = thing
 				if(imp.w_class >= removal_size && !istype(imp, /obj/item/weapon/implant))
 					valid_objects += imp
 			if(LAZYLEN(valid_objects))
-				var/removing = pick(valid_objects)
-				target.remove_implant(removing, TRUE)
+				var/obj/removing = pick(valid_objects)
+				removing.loc = get_turf(target)
+				target.implants -= removing
 				to_chat(user, SPAN_NOTICE("You extend a tendril of psychokinetic-redactive power and carefully tease \the [removing] free of \the [E]."))
 				return TRUE
 
