@@ -1584,3 +1584,24 @@ var/list/rank_prefix = list(\
 /mob/living/carbon/human/proc/set_remoteview(var/atom/A)
 	remoteview_target = A
 	reset_view(A)
+
+/mob/living/carbon/human/proc/resuscitate()
+	if(!is_asystole() || !should_have_organ(BP_HEART))
+		return
+	var/obj/item/organ/internal/heart/heart = internal_organs_by_name[BP_HEART]
+	if(istype(heart) && !(heart.status & ORGAN_DEAD))
+		var/active_breaths = FALSE
+		if(species.has_organ[BP_LUNGS])
+			var/obj/item/organ/internal/lungs/L = internal_organs_by_name[BP_LUNGS]
+			if(!(L.status & ORGAN_DEAD))
+				active_breaths = TRUE
+		if(getBrainLoss() < 60 && active_breaths)
+			visible_message("\The [src] jerks and gasps for breath!")
+		else
+			visible_message("\The [src] twitches a bit as \his heart restarts!")
+		shock_stage = min(shock_stage, 100) // 120 is the point at which the heart stops.
+		if(getOxyLoss() >= 75)
+			setOxyLoss(75)
+		heart.pulse = PULSE_NORM
+		heart.handle_pulse()
+		return TRUE

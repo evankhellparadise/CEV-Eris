@@ -68,14 +68,14 @@
 		if(pk_rank >= PSI_RANK_LATENT && redaction_rank >= PSI_RANK_MASTER)
 			var/removal_size = CLAMP(5-pk_rank, 0, 5)
 			var/valid_objects = list()
-			for(var/thing in target.get_visible_implants())
-				var/obj/imp = thing
-				if(imp.w_class >= removal_size && !istype(imp, /obj/item/weapon/implant))
-					valid_objects += imp
+			for(var/obj/item/I in (E.implants & E.embedded))
+				if(I.w_class >= removal_size && !istype(I, /obj/item/weapon/implant))
+					valid_objects += I
 			if(LAZYLEN(valid_objects))
 				var/obj/removing = pick(valid_objects)
 				removing.loc = get_turf(target)
-				target.implants -= removing
+				E.implants -= removing
+				E.embedded -= removing
 				to_chat(user, SPAN_NOTICE("You extend a tendril of psychokinetic-redactive power and carefully tease \the [removing] free of \the [E]."))
 				return TRUE
 
