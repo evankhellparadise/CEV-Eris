@@ -1,4 +1,4 @@
-/obj/item/stack/material/withstand_psi_stress(var/stress, var/atom/source)
+/obj/item/stack/material/withstand_psi_stress(stress, atom/source)
 	. = ..(stress, source)
 	if(amount > 0 && . > 0 && disrupts_psionics())
 		if(. > amount)
@@ -17,6 +17,6 @@
 	singular_name = "nullglass piece"
 	default_type = MATERIAL_NULLGLASS
 
-/obj/item/stack/material/nullglass/fifty
-	amount = 50
-
+/obj/item/stack/material/nullglass/random
+	rand_min = 3
+	rand_max = 30

@@ -23,6 +23,10 @@
 	destruction_desc = "shatters"
 	hitsound = 'sound/effects/Glasshit.ogg'
 
-/material/nullglass/generate_recipes()
-	. = ..()
-	. += new /datum/stack_recipe/tile/nullglass(src)
+/datum/craft_recipe/floor/null_floor
+	name = "nullglass floor tile"
+	result = /obj/item/stack/tile/floor_nullglass
+	steps = list(
+		list(CRAFT_MATERIAL, 1, MATERIAL_NULLGLASS)
+	)
+	name_craft_menu = "Null Tiles"
