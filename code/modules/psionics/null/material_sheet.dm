@@ -16,6 +16,7 @@
 	icon_state = "sheet-shiny"
 	singular_name = "nullglass piece"
 	default_type = MATERIAL_NULLGLASS
+	color = COLOR_NULLGLASS
 
 /obj/item/stack/material/nullglass/random
 	rand_min = 3

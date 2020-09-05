@@ -10,7 +10,7 @@
 	var/old_stun = stun
 	stun = max(stun, amount)
 	if(amount && !old_stun)
-		to_chat(owner, "<span class='danger'>Your concentration has been shattered! You cannot focus your psi power!</span>")
+		to_chat(owner, SPAN_DANGER("Your concentration has been shattered! You cannot focus your psi power!"))
 		ui.update_icon()
 	cancel()
 
@@ -69,14 +69,14 @@
 		for(var/image/I in SSpsi.all_aura_images)
 			owner.client.images |= I
 
-/datum/psi_complexus/proc/backblast(var/value)
+/datum/psi_complexus/proc/backblast(value)
 
 	// Can't backblast if you're controlling your power.
 	if(!owner || suppressed)
 		return FALSE
 
 	sound_to(owner, sound('sound/effects/psi/power_feedback.ogg'))
-	to_chat(owner, "<span class='danger'><font size=3>Wild energistic feedback blasts across your psyche!</font></span>")
+	to_chat(owner, SPAN_DANGER("<font size=3>Wild energistic feedback blasts across your psyche!</font>"))
 	stunned(value * 2)
 	set_cooldown(value * 100)
 

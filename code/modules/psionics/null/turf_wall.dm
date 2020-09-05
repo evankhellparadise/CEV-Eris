@@ -10,9 +10,5 @@
 		take_damage(.)
 		. = max(0, -(cap-stress_total))
 
-/turf/simulated/wall/nullglass
-	color = "#ff6088"
-
-/turf/simulated/wall/nullglass/Initialize(ml)
-	color = null
+/turf/simulated/wall/nullglass/New(ml)
 	..(ml, MATERIAL_NULLGLASS)

@@ -9,11 +9,15 @@
 	desc = "You can hear the tiles whispering..."
 	icon_base = "nullglass"
 	has_damage_range = null
-	flags = TURF_REMOVE_SCREWDRIVER
+	flags = TURF_HAS_CORNERS | TURF_HAS_INNER_CORNERS | TURF_REMOVE_CROWBAR | TURF_CAN_BREAK | TURF_HIDES_THINGS
 	build_type = /obj/item/stack/tile/floor_nullglass
 	psi_null = TRUE
 
 /obj/item/stack/tile/floor_nullglass
 	name = "nullglass floor tile"
 	icon_state = "tile_nullglass"
-	matter = list(MATERIAL_NULLGLASS = 937.5)
+	color = COLOR_NULLGLASS
+	matter = list(MATERIAL_NULLGLASS = 1)
+
+/obj/item/stack/tile/floor_nullglass/disrupts_psionics()
+	return src

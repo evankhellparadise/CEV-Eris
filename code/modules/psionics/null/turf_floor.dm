@@ -4,4 +4,5 @@
 /turf/simulated/floor/tiled/nullglass
 	name = "nullglass floor"
 	icon_state = "nullglass"
+	color = COLOR_NULLGLASS
 	initial_flooring = /decl/flooring/tiling/nullglass

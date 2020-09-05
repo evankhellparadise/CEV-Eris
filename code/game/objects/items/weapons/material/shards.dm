@@ -15,6 +15,7 @@
 	default_material = MATERIAL_GLASS
 	unbreakable = 1 //It's already broken.
 	drops_debris = 0
+	var/is_shrapnel = FALSE
 	var/amount = 0
 
 /obj/item/weapon/material/shard/New(var/newloc, var/material_key, var/_amount)
@@ -46,9 +47,12 @@
 	update_icon()
 
 	if(material.shard_type)
-		name = "[material.display_name] [material.shard_type]"
+		var/shard_type = material.shard_type
+		if(is_shrapnel)
+			shard_type = SHARD_SHRAPNEL
+		name = "[material.display_name] [shard_type]"
 		desc = "A small piece of [material.display_name]. It looks sharp, you wouldn't want to step on it barefoot. Could probably be used as ... a throwing weapon?"
-		switch(material.shard_type)
+		switch(shard_type)
 			if(SHARD_SPLINTER, SHARD_SHRAPNEL)
 				gender = PLURAL
 			else
@@ -65,13 +69,15 @@
 		color = "#ffffff"
 		alpha = 255
 
-
+	var/shard_icon = material.shard_icon
+	if(is_shrapnel)
+		shard_icon = SHARD_SHRAPNEL
 	if (amount > 0.7)
-		icon_state = "[material.shard_icon]["large"]"
+		icon_state = "[shard_icon]["large"]"
 	else if (amount < 0.4)
-		icon_state = "[material.shard_icon]["medium"]"
+		icon_state = "[shard_icon]["medium"]"
 	else
-		icon_state = "[material.shard_icon]["small"]"
+		icon_state = "[shard_icon]["small"]"
 	//variable rotation based on randomness
 	var/rot = rand(0, 360)
 	var/matrix/M = matrix()
@@ -176,10 +182,10 @@
 // Preset types - left here for the code that uses them
 /obj/item/weapon/material/shard/shrapnel
 	name = "shrapnel" //Needed for crafting
+	is_shrapnel = TRUE
 
-/obj/item/weapon/material/shard/shrapnel/New(loc)
-
-	..(loc, MATERIAL_STEEL)
+/obj/item/weapon/material/shard/shrapnel/New(loc, new_material = MATERIAL_STEEL)
+	..(loc, new_material)
 
 /obj/item/weapon/material/shard/shrapnel/scrap
 	name = "scrap metal"

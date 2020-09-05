@@ -13,7 +13,7 @@
 	conductive = 1
 	stack_type = /obj/item/stack/material/nullglass
 	flags = MATERIAL_BRITTLE
-	opacity = FALSE
+	opacity = 0.3
 	integrity = 30
 	shard_type = SHARD_SHARD
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
