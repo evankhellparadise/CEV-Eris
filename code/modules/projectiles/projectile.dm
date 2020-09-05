@@ -54,7 +54,8 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/agony = 0
-	var/embed = 0 // whether or not the projectile can embed itself in the mob
+	var/embed = FALSE // whether or not the projectile can embed itself in the mob
+	var/base_prob_embed = 20
 	var/knockback = 0
 
 	var/hitscan = FALSE		// whether the projectile should be hitscan
@@ -75,7 +76,11 @@
 	var/matrix/effect_transform			// matrix to rotate and scale projectile effects - putting it here so it doesn't
 										//  have to be recreated multiple times
 
-	var/shrapnel_type = /obj/item/weapon/material/shard/shrapnel
+	var/shrapnel_type
+	var/disrupts_psionics = FALSE
+
+/obj/item/projectile/disrupts_psionics()
+	return disrupts_psionics ? src : FALSE
 
 /obj/item/projectile/is_hot()
 	if (damage_types[BURN])

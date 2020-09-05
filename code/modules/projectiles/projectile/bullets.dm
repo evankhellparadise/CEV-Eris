@@ -6,9 +6,9 @@
 	check_armour = ARMOR_BULLET
 	embed = TRUE
 	sharp = FALSE
+	shrapnel_type = /obj/item/weapon/material/shard/shrapnel
 	hitsound_wall = "ric_sound"
 	var/mob_passthrough_check = 0
-
 	muzzle_type = /obj/effect/projectile/bullet/muzzle
 
 /obj/item/projectile/bullet/on_hit(atom/target)

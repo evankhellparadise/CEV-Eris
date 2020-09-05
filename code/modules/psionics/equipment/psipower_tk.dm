@@ -14,7 +14,7 @@
 		return
 	. = ..()
 
-/obj/item/psychic_power/telekinesis/proc/set_focus(var/atom/movable/_focus)
+/obj/item/psychic_power/telekinesis/proc/set_focus(atom/movable/_focus)
 
 	if(!_focus.simulated || !istype(_focus.loc, /turf))
 		return FALSE

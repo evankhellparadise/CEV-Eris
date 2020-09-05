@@ -69,22 +69,21 @@
 				shadow.visible_message(SPAN_WARNING("[shadow] gives up on trying to climb onto \the [A]!"))
 			return
 
+	if(psi)
+		INVOKE_PSI_POWERS(src, psi.get_ranged_powers(SSpsi.faculties_by_intent[a_intent]), A, TRUE)
+		return
+
 	//PERK_ABSOLUTE_GRAB
-	
 	if(get_dist_euclidian(get_turf(A), get_turf(src)) < 3 && ishuman(A))
 		if(stats.getPerk(PERK_ABSOLUTE_GRAB) && a_intent == I_GRAB)
 			absolute_grab(A) // moved into a proc belowaa
 			return
-	if(!gloves && !mutations.len) return
-	var/obj/item/clothing/gloves/G = gloves
-	if((LASER in mutations) && a_intent == I_HURT)
-		LaserEyes(A) // moved into a proc below
 
-	else if(istype(G) && G.Touch(A, 0)) // for magic gloves
+	if(!gloves) return
+	var/obj/item/clothing/gloves/G = gloves
+	if(istype(G) && G.Touch(A, 0)) // for magic gloves
 		return
 
-	else if(TK in mutations)
-		A.attack_tk(src)
 
 /mob/living/RestrainedClickOn(atom/A)
 	return
@@ -99,7 +98,7 @@
 /mob/living/carbon/alien/UnarmedAttack(atom/A, proximity)
 
 	if(!..())
-		return 0
+		return FALSE
 
 	A.attack_generic(src, rand(5, 6), "bitten")
 

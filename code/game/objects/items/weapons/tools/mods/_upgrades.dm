@@ -265,6 +265,7 @@
 		G.proj_damage_adjust[IRRADIATE] += weapon_upgrades[GUN_UPGRADE_DAMAGE_RADIATION]
 	if(weapon_upgrades[GUN_UPGRADE_DAMAGE_PSY])
 		G.proj_damage_adjust[PSY] += weapon_upgrades[GUN_UPGRADE_DAMAGE_PSY]
+		G.disrupts_psionics = TRUE
 	if(weapon_upgrades[GUN_UPGRADE_HONK])
 		G.fire_sound = 'sound/items/bikehorn.ogg'
 	if(weapon_upgrades[GUN_UPGRADE_RIGGED])
@@ -460,9 +461,9 @@
 		if(weapon_upgrades[GUN_UPGRADE_OFFSET])
 			var/amount = weapon_upgrades[GUN_UPGRADE_OFFSET]
 			if(amount > 1)
-				to_chat(user, SPAN_WARNING("Increases weapon inaccuracy by [amount]°"))
+				to_chat(user, SPAN_WARNING("Increases weapon inaccuracy by [amount]ï¿½"))
 			else
-				to_chat(user, SPAN_NOTICE("Decreases weapon inaccuracy by [amount]°"))
+				to_chat(user, SPAN_NOTICE("Decreases weapon inaccuracy by [amount]ï¿½"))
 
 		if(weapon_upgrades[GUN_UPGRADE_HONK])
 			to_chat(user, SPAN_WARNING("Cheers up the firing sound of the weapon."))

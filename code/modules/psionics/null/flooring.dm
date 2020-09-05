@@ -1,5 +1,5 @@
 /decl/flooring
-	var/psi_null
+	var/psi_null = FALSE
 
 /decl/flooring/proc/is_psi_null()
 	return psi_null
