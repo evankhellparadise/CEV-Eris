@@ -146,7 +146,7 @@
 
 	return TRUE
 
-/mob/living/carbon/proc/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
+/mob/living/carbon/proc/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
 
 	if(istext(selhand))
 		selhand = lowertext(selhand)
@@ -158,6 +158,8 @@
 
 	if(selhand != src.hand)
 		swap_hand()
+	else
+		attack_empty_hand(selhand)
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if (src.health >= HEALTH_THRESHOLD_CRIT)

@@ -116,7 +116,7 @@
 	min_rank =        PSI_RANK_GRANDMASTER
 	use_description = "Target a patient while on help intent at melee range to cleanse radiation and genetic damage from a patient."
 
-/decl/psionic_power/redaction/cleanse/invoke(var/mob/living/user, var/mob/living/carbon/human/target)
+/decl/psionic_power/redaction/cleanse/invoke(mob/living/user, mob/living/carbon/human/target)
 	if(!istype(user) || !istype(target))
 		return FALSE
 	. = ..()
@@ -150,7 +150,7 @@
 	use_description = "Obtain a grab on a dead target, target the head, then select help intent and use the grab against them to attempt to bring them back to life. The process is lengthy and failure is punished harshly."
 	admin_log = FALSE
 
-/decl/psionic_power/revive/invoke(var/mob/living/user, var/mob/living/target)
+/decl/psionic_power/revive/invoke(mob/living/user, mob/living/target)
 	if(!isliving(target) || !istype(target) || user.targeted_organ != BP_HEAD)
 		return FALSE
 	. = ..()

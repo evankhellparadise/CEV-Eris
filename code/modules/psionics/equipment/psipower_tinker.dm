@@ -1,9 +1,9 @@
 /obj/item/psychic_power/tinker
 	name = "psychokinetic crowbar"
 	icon_state = "tinker"
-	force = 1
+	force = WEAPON_FORCE_HARMLESS
 	var/emulating = "Crowbar"
-	tool_qualities = list(QUALITY_PRYING = 25)
+	tool_qualities = list(QUALITY_PRYING = 30)
 
 /obj/item/psychic_power/tinker/attack_self()
 
@@ -29,7 +29,7 @@
 	sound_to(owner, 'sound/effects/psi/power_fabrication.ogg')
 	switch(emulating)
 		if("Crowbar")
-			tool_qualities = list(QUALITY_PRYING = 25)
+			tool_qualities = list(QUALITY_PRYING = 30)
 		if("Wrench")
 			tool_qualities = list(QUALITY_BOLT_TURNING = 30)
 		if("Screwdriver")
@@ -37,6 +37,6 @@
 		if("Wirecutters")
 			tool_qualities = list(QUALITY_WIRE_CUTTING = 30)
 		if("Hammer")
-			tool_qualities = list(QUALITY_HAMMERING = 20)
+			tool_qualities = list(QUALITY_HAMMERING = 30)
 		if("Shovel")
 			tool_qualities = list(QUALITY_SHOVELING = 30)
