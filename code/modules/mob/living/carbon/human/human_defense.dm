@@ -155,6 +155,14 @@ meteor_act
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone) return 0
 	var/protection = 0
+
+	if(psi && psi.get_armour(type) > protection)
+		protection = psi.get_armour(type)
+		admin_notice(SPAN_DANGER("ESTA ES LA ARMADURA PSIQUICA [protection]"))
+
+	if(type == PSY)
+		return protection
+
 	var/list/protective_gear = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes)
 	if(def_zone.armor)
 		if(def_zone.armor.getRating(type) > protection)
