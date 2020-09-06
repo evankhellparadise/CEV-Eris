@@ -8,7 +8,6 @@ meteor_act
 */
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-
 	def_zone = check_zone(def_zone)
 	if(!has_organ(def_zone))
 		return PROJECTILE_FORCE_MISS //if they don't have the organ in question then the projectile just passes by.
@@ -28,8 +27,8 @@ meteor_act
 	.=..(P , def_zone)
 
 	var/check_absorb = .
-	//Shrapnel
-	if(P.can_embed() && (check_absorb < 2))
+	//Shrapnel 
+	if(P.can_embed()  && (check_absorb < 2))
 		var/armor = getarmor_organ(organ, ARMOR_BULLET)
 		if(prob(P.base_prob_embed + max(P.damage_types[BRUTE] - armor, -10)))
 			var/obj/item/weapon/material/shard/shrapnel/SP = new P.shrapnel_type()
@@ -190,10 +189,9 @@ meteor_act
 	return null
 
 /mob/living/carbon/human/proc/check_shields(damage = 0, atom/damage_source = null, mob/attacker = null, def_zone = null, attack_text = "the attack")
-
 	var/obj/item/projectile/P = damage_source
 	if(istype(P) && !P.disrupts_psionics() && psi && P.starting && prob(psi.get_armour(P.check_armour) * 0.5) && psi.spend_power(round(damage/10)))
-		visible_message("<span class='danger'>\The [src] deflects [attack_text]!</span>")
+		visible_message(SPAN_DANGER("\The [src] deflects [attack_text]!"))
 		P.redirect(P.starting.x + rand(-2,2), P.starting.y + rand(-2,2), get_turf(src), src)
 		return PROJECTILE_FORCE_MISS
 
@@ -231,7 +229,7 @@ meteor_act
 	if(!affecting)
 		return FALSE//should be prevented by attacked_with_item() but for sanity.
 
-	visible_message("<span class='danger'>[src] has been [I.attack_verb.len? pick(I.attack_verb) : "attacked"] in the [affecting.name] with [I.name] by [user]!</span>")
+	visible_message(SPAN_DANGER("[src] has been [I.attack_verb.len? pick(I.attack_verb) : "attacked"] in the [affecting.name] with [I.name] by [user]!"))
 
 	standard_weapon_hit_effects(I, user, effective_force, hit_zone)
 
@@ -311,7 +309,7 @@ meteor_act
 		return FALSE
 	//There was blocked var, removed now. For the sake of game balance, it was just replaced by 2
 	if(prob(W.force / 2))
-		visible_message("<span class='danger'>[src]'s [organ.joint] [pick("gives way","caves in","crumbles","collapses")]!</span>")
+		visible_message(SPAN_DANGER("[src]'s [organ.joint] [pick("gives way","caves in","crumbles","collapses")]!"))
 		organ.dislocate(1)
 		return TRUE
 	return FALSE

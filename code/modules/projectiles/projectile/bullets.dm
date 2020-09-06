@@ -8,7 +8,7 @@
 	sharp = FALSE
 	shrapnel_type = /obj/item/weapon/material/shard/shrapnel
 	hitsound_wall = "ric_sound"
-	var/mob_passthrough_check = 0
+	var/mob_passthrough_check = FALSE
 	muzzle_type = /obj/effect/projectile/bullet/muzzle
 
 /obj/item/projectile/bullet/on_hit(atom/target)
@@ -16,21 +16,21 @@
 		var/mob/living/L = target
 		shake_camera(L, 1, 1, 0.5)
 
-/obj/item/projectile/bullet/attack_mob(var/mob/living/target_mob, distance, miss_modifier)
+/obj/item/projectile/bullet/attack_mob(mob/living/target_mob, distance, miss_modifier)
 	if(penetrating > 0 && damage_types[BRUTE] > 20 && prob(damage_types[BRUTE]))
-		mob_passthrough_check = 1
+		mob_passthrough_check = TRUE
 	else
 		var/obj/item/weapon/grab/G = locate() in target_mob
 		if(G && G.state >= GRAB_NECK)
 			mob_passthrough_check = rand()
 		else
-			mob_passthrough_check = 0
+			mob_passthrough_check = FALSE
 	return ..()
 
 /obj/item/projectile/bullet/can_embed()
 	//prevent embedding if the projectile is passing through the mob
 	if(mob_passthrough_check)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/item/projectile/bullet/check_penetrate(var/atom/A)
