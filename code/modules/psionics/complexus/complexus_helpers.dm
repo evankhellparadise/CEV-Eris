@@ -70,7 +70,6 @@
 			owner.client.images |= I
 
 /datum/psi_complexus/proc/backblast(value)
-
 	// Can't backblast if you're controlling your power.
 	if(!owner || suppressed)
 		return FALSE
