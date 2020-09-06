@@ -1,7 +1,6 @@
 /obj/item/weapon/implant/psi_control
 	name = "psi dampener implant"
 	desc = "A safety implant for registered psi-operants."
-
 	is_legal = TRUE
 	var/overload = 0
 	var/max_overload = 100

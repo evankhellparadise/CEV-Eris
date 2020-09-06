@@ -1,6 +1,7 @@
 /obj/item/stack/material/withstand_psi_stress(stress, atom/source)
 	. = ..(stress, source)
 	if(amount > 0 && . > 0 && disrupts_psionics())
+		visible_message(SPAN_WARNING("the psy powers shakes [src]"))
 		if(. > amount)
 			use(amount)
 			. -= amount

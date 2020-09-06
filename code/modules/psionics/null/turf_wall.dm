@@ -4,6 +4,7 @@
 /turf/simulated/wall/withstand_psi_stress(stress, atom/source)
 	. = ..(stress, source)
 	if(. > 0 && disrupts_psionics())
+		visible_message(SPAN_WARNING("the psy powers shakes [src]"))
 		var/cap = material.integrity
 		if(reinf_material) cap += reinf_material.integrity
 		var/stress_total = damage + .
