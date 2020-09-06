@@ -361,7 +361,7 @@ This function restores all organs.
 	//Handle PSY damage
 	if(damagetype == PSY)
 		sanity.onPsyDamage(damage)
-		return 1
+		return TRUE
 
 	//Handle other types of damage
 	if(damagetype != BRUTE && damagetype != BURN)
@@ -371,7 +371,7 @@ This function restores all organs.
 
 		..(damage, damagetype, def_zone)
 		sanity.onDamage(damage)
-		return 1
+		return TRUE
 
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage, def_zone)
@@ -382,7 +382,7 @@ This function restores all organs.
 	else
 		if(!def_zone)	def_zone = ran_zone(def_zone)
 		organ = get_organ(check_zone(def_zone))
-	if(!organ)	return 0
+	if(!organ)	return FALSE
 
 	switch(damagetype)
 		if(BRUTE)
@@ -401,7 +401,7 @@ This function restores all organs.
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	updatehealth()
 	BITSET(hud_updateflag, HEALTH_HUD)
-	return 1
+	return TRUE
 
 
 //Falling procs

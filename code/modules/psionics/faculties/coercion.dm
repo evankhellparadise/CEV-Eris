@@ -35,7 +35,7 @@
 		for(var/mob/living/M in orange(user, user.psi.get_rank(PSI_COERCION)))
 			if(M == user)
 				continue
-			var/blocked = 100 * M.getarmor(null, PSY)
+			var/blocked = M.getarmor(null, PSY)
 			if(prob(blocked))
 				to_chat(M, SPAN_DANGER("A psionic onslaught strikes your mind, but you withstand it!"))
 				continue
