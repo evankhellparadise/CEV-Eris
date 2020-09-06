@@ -31,11 +31,7 @@ meteor_act
 	if(P.can_embed()  && (check_absorb < 2))
 		var/armor = getarmor_organ(organ, ARMOR_BULLET)
 		if(prob(P.base_prob_embed + max(P.damage_types[BRUTE] - armor, -10)))
-			var/obj/item/weapon/material/shard/shrapnel/SP = new P.shrapnel_type()
-			SP.name = (P.name != "shrapnel")? "[P.name] shrapnel" : "shrapnel"
-			SP.desc = "[SP.desc] It looks like it was fired from [P.shot_from]."
-			SP.loc = organ
-			organ.embed(SP)
+			organ.embed(P.get_shrapnel())
 
 
 /mob/living/carbon/human/hit_impact(damage, dir)

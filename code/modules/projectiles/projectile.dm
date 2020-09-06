@@ -874,3 +874,10 @@
 	var/icon/I = new(P.icon, P.icon_state)
 	I.Blend(color)
 	return I
+
+/obj/item/projectile/proc/get_shrapnel()
+	if(shrapnel_type)
+		var/obj/item/SP = new shrapnel_type()
+		SP.SetName((name != "shrapnel")? "[name] shrapnel" : "shrapnel")
+		SP.desc += " It looks like it was fired from [shot_from]."
+		return SP

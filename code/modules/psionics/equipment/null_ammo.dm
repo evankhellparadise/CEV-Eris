@@ -1,6 +1,6 @@
 /obj/item/projectile/bullet/nullglass
 	name = "nullglass bullet"
-	damage_types = list(BRUTE = 40)
+	damage_types = list(BRUTE = 35)
 	shrapnel_type = /obj/item/weapon/material/shard/shrapnel/nullglass
 	disrupts_psionics = TRUE
 	base_prob_embed = 30

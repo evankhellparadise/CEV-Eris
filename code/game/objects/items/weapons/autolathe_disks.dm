@@ -465,6 +465,7 @@
 		//speed loaders
 		/datum/design/autolathe/ammo/sl_pistol,
 		/datum/design/autolathe/ammo/sl_magnum,
+		/datum/design/autolathe/ammo/sl_magnum/nullglass,
 		//smg mags
 		/datum/design/autolathe/ammo/smg,
 		//magnum smg mags

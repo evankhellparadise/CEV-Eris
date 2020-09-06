@@ -576,7 +576,7 @@
 
 /datum/chemical_reaction/plasmasolidification
 	result = null
-	required_reagents = list("iron" = 5, "frostoil" = 5, "plasma" = 20)
+	required_reagents = list("crystal" = 5, "plasma" = 20)
 	result_amount = 1
 
 /datum/chemical_reaction/plasmasolidification/on_reaction(var/datum/reagents/holder, var/created_volume)

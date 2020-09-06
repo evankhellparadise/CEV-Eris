@@ -826,7 +826,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return FALSE
 
 /obj/item/organ/external/proc/embed(obj/item/W, silent = 0)
-	if(!owner || loc != owner)
+	if(!owner || loc != owner || !W)
 		return
 	if(ismob(W.loc))
 		var/mob/living/H = W.loc
