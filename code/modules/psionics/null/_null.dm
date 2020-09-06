@@ -1,4 +1,10 @@
 /atom/proc/disrupts_psionics()
+	if(istype(src, /obj))
+		var/obj/O = src
+		if(O.matter && O.matter.len)
+			var/mterialnull = MATERIAL_NULLGLASS
+			if(mterialnull in O.matter)
+				return src
 	for(var/thing in contents)
 		var/atom/movable/AM = thing
 		var/disrupted_by = AM.disrupts_psionics()

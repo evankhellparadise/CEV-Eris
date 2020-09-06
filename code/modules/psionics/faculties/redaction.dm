@@ -68,8 +68,8 @@
 		if(pk_rank >= PSI_RANK_LATENT && redaction_rank >= PSI_RANK_MASTER)
 			var/removal_size = CLAMP(5-pk_rank, 0, 5)
 			var/valid_objects = list()
-			for(var/obj/item/I in (E.implants & E.embedded))
-				if(I.w_class >= removal_size && !istype(I, /obj/item/weapon/implant))
+			for(var/obj/item/I in E.implants)
+				if(I.w_class >= removal_size && !istype(I, /obj/item/weapon/implant) && !I.disrupts_psionics())
 					valid_objects += I
 			if(LAZYLEN(valid_objects))
 				var/obj/removing = pick(valid_objects)

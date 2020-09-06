@@ -16,3 +16,7 @@
 	name = "ammunition packet (.40 Magnum nullglass)"
 	matter = list(MATERIAL_STEEL = 9, MATERIAL_CARDBOARD = 1, MATERIAL_NULLGLASS = 1)
 	ammo_type = /obj/item/ammo_casing/magnum/nullglass
+
+/datum/design/autolathe/ammo/sl_magnum/nullglass
+	name = "speed loader (.40 Magnum nullglass)"
+	build_path = /obj/item/ammo_magazine/slmagnum/nullglass
