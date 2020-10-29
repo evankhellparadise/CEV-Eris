@@ -30,6 +30,7 @@
 	var/list/nerve_system_accumulations = list() // Nerve system accumulations
 	var/nsa_threshold = 100
 	var/nsa_current = 0
+	var/list/mods_nsa_threshold = list()
 
 	var/mob/living/carbon/parent
 	var/list/present_reagent_ids = list()
@@ -51,7 +52,6 @@
 	for(var/i in nerve_system_accumulations)
 		if(findtext(i, tag, 1, 0) == 1)
 			nerve_system_accumulations.Remove(i)
-		
 
 /datum/metabolism_effects/proc/get_nsa_value(tag)
 	if(nerve_system_accumulations[tag])
@@ -67,6 +67,45 @@
 		accumulatedNSA += nerve_system_accumulations[tag]
 	return accumulatedNSA
 
+/datum/metabolism_effects/proc/add_nsa_modif(delay, affect, id)
+	for(var/datum/stat_mod/NSAM in mods_nsa_threshold)
+		if(NSAM.id == id)
+			if(delay == INFINITY)
+				NSAM.time = -1
+			else
+				NSAM.time = world.time + delay
+			NSAM.value = affect
+			return
+	mods_nsa_threshold += new /datum/stat_mod(delay, affect, id)
+
+/datum/metabolism_effects/proc/remove_nsa_modifier(id)
+	for(var/datum/stat_mod/NSAM in mods_nsa_threshold)
+		if(NSAM.id == id)
+			mods_nsa_threshold.Remove(NSAM)
+			return
+
+/datum/nsa_threshold_mod
+	var/time = 0
+	var/value = 0
+	var/id
+
+/datum/nsa_threshold_mod/New(_delay, _affect, _id)
+	if(_delay == INFINITY)
+		time = -1
+	else
+		time = world.time + _delay
+	value = _affect
+	id = _id
+
+/datum/metabolism_effects/proc/get_nsa_threshold()
+	. = nsa_threshold
+	for(var/datum/nsa_threshold_mod/NSAM in mods_nsa_threshold)
+		if(NSAM.time != -1 && NSAM.time < world.time)
+			mods_nsa_threshold -= NSAM
+			qdel(NSAM)
+			continue
+		. += NSAM.value
+
 /datum/metabolism_effects/proc/handle_nsa()
 	var/nsa_target = get_nsa_target()
 	if(nsa_target != nsa_current)
@@ -74,12 +113,12 @@
 		            ? min(nsa_current + nsa_target / 30, nsa_target) \
 		            : max(nsa_current - 6.66, nsa_target)
 		nsa_changed()
-	if(get_nsa() > nsa_threshold)
+	if(get_nsa() > get_nsa_threshold())
 		nsa_breached_effect()
 
 /datum/metabolism_effects/proc/nsa_changed()
-	if(get_nsa() > nsa_threshold)
-		var/stat_mod = get_nsa() > 140 ? -20 : -10
+	if(get_nsa() > get_nsa_threshold())
+		var/stat_mod = get_nsa() > get_nsa_threshold()*1.4 ? -20 : -10
 		for(var/stat in ALL_STATS)
 			parent.stats.addTempStat(stat, stat_mod, INFINITY, "nsa_breach")
 	else
@@ -90,20 +129,20 @@
 	hud?.update_icon()
 
 /datum/metabolism_effects/proc/nsa_breached_effect()
-	if(get_nsa() < nsa_threshold*1.2) // 20% more
+	if(get_nsa() < get_nsa_threshold()*1.2) // 20% more
 		return
 	parent.vomit()
 
-	if(get_nsa() < nsa_threshold*1.6)
+	if(get_nsa() < get_nsa_threshold()*1.6)
 		return
 	parent.drop_l_hand()
 	parent.drop_r_hand()
 
-	if(get_nsa() < nsa_threshold*1.8)
+	if(get_nsa() < get_nsa_threshold()*1.8)
 		return
 	parent.adjustToxLoss(1)
 
-	if(get_nsa() < nsa_threshold*2)
+	if(get_nsa() < get_nsa_threshold()*2)
 		return
 	parent.Sleeping(2)
 

@@ -123,7 +123,7 @@
 		if(!cube.wrapped)
 			cube.Expand()
 
-/datum/reagent/water/touch_mob(mob/living/L, var/amount)
+/datum/reagent/water/touch_mob(mob/living/L, amount)
 	if(istype(L))
 		L.fire_stacks = 0
 		L.ExtinguishMob()
@@ -170,7 +170,7 @@
 /datum/reagent/toxin/fuel/affect_blood(mob/living/carbon/M, alien, effect_multiplier)
 	M.adjustToxLoss(0.2 * (issmall(M) ? effect_multiplier * 2 : effect_multiplier))
 
-/datum/reagent/toxin/fuel/touch_mob(mob/living/L, var/amount)
+/datum/reagent/toxin/fuel/touch_mob(mob/living/L, amount)
 	if(istype(L))
 		L.adjust_fire_stacks(amount / 10) // Splashing people with welding fuel to make them easy to ignite!
 

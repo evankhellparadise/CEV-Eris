@@ -436,11 +436,11 @@
 		I.was_bloodied = null
 	M.was_bloodied = null
 
-/datum/reagent/medicine/sterilizine/touch_obj(var/obj/O)
+/datum/reagent/medicine/sterilizine/touch_obj(obj/O)
 	O.germ_level -= min(volume*20, O.germ_level)
 	O.was_bloodied = null
 
-/datum/reagent/medicine/sterilizine/touch_turf(var/turf/T)
+/datum/reagent/medicine/sterilizine/touch_turf(turf/T)
 	T.germ_level -= min(volume*20, T.germ_level)
 	for(var/obj/item/I in T.contents)
 		I.was_bloodied = null
@@ -674,19 +674,18 @@
 	metabolism = REM/2
 
 /datum/reagent/medicine/detox/affect_blood(mob/living/carbon/M, alien, effect_multiplier)
-	if(M.metabolism_effects.nsa_threshold == initial(M.metabolism_effects.nsa_threshold))
-		M.metabolism_effects.nsa_threshold += rand(20, 60)
+	if(iscarbon(M))
+		M.metabolism_effects.add_nsa_modif(INFINITY, rand(20, 60), src.id)
 
 /datum/reagent/medicine/detox/on_mob_delete(mob/living/L)
 	..()
-	var/mob/living/carbon/C = L
-	if(istype(C))
-		C.metabolism_effects.nsa_threshold = initial(C.metabolism_effects.nsa_threshold)
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.metabolism_effects.remove_nsa_modifier(src.id)
 
 /datum/reagent/medicine/detox/overdose(mob/living/carbon/M, alien)
-	var/mob/living/carbon/C = M
-	if(istype(C))
-		C.metabolism_effects.nsa_threshold = initial(C.metabolism_effects.nsa_threshold) - rand(20, 40)
+	if(iscarbon(M))
+		M.metabolism_effects.add_nsa_modif(INFINITY, -rand(20, 40), src.id)
 
 /datum/reagent/medicine/purger
 	name = "Purger"
@@ -712,20 +711,18 @@
 	metabolism = REM/2
 
 /datum/reagent/medicine/addictol/affect_blood(mob/living/carbon/M, alien, effect_multiplier)
-	var/mob/living/carbon/C = M
-	if(istype(C) && C.metabolism_effects.addiction_list.len)
+	if(iscarbon(M) && M.metabolism_effects.addiction_list.len)
 		if(prob(5 * effect_multiplier + dose))
-			var/datum/reagent/R = pick(C.metabolism_effects.addiction_list)
-			to_chat(C, SPAN_NOTICE("You dont crave for [R.name] anymore."))
-			C.metabolism_effects.addiction_list.Remove(R)
+			var/datum/reagent/R = pick(M.metabolism_effects.addiction_list)
+			to_chat(M, SPAN_NOTICE("You dont crave for [R.name] anymore."))
+			M.metabolism_effects.addiction_list.Remove(R)
 			qdel(R)
 
 /datum/reagent/medicine/addictol/on_mob_delete(mob/living/L)
 	..()
-	var/mob/living/carbon/C = L
-	if(dose >= 10)
-		if(istype(C))
-			C.remove_all_addictions()
+	if(iscarbon(L) && dose >= 10)
+		var/mob/living/carbon/C = L
+		C.remove_all_addictions()
 
 /datum/reagent/medicine/aminazine
 	name = "Aminazine"

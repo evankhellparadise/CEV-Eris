@@ -8,12 +8,12 @@
 	taste_mult = 4
 	reagent_state = SOLID
 	metabolism = REM * 2
-	var/nutriment_factor = 12 // Per metabolism tick
-	var/regen_factor = 0.8 //Used for simple animal health regeneration
-	var/injectable = 0
 	sanity_gain_ingest = 0.3 //well they are a sort of food so, this defines how good eating the thing will make you feel
 	taste_tag = list()  // list the tastes the thing got there
 	color = "#664330"
+	var/nutriment_factor = 12 // Per metabolism tick
+	var/regen_factor = 0.8 //Used for simple animal health regeneration
+	var/injectable = 0
 
 /datum/reagent/organic/nutriment/mix_data(var/list/newdata, var/newamount)
 	if(!islist(newdata) || !newdata.len)
@@ -54,9 +54,8 @@
 	id = "glucose"
 	description = "Most important source of energy in all organisms."
 	color = "#FFFFFF"
-	taste_tag = list(TASTE_SWEET)
-
 	injectable = 1
+	taste_tag = list(TASTE_SWEET)
 
 /datum/reagent/organic/nutriment/protein
 	name = "Animal Protein"
@@ -276,11 +275,11 @@
 	taste_mult = 1.5
 	reagent_state = LIQUID
 	color = "#B31008"
+	taste_tag = list(TASTE_SPICY)
 	var/agony_dose = 5
 	var/agony_amount = 2
 	var/discomfort_message = "<span class='danger'>Your insides feel uncomfortably hot!</span>"
 	var/slime_temp_adj = 10
-	taste_tag = list(TASTE_SPICY)
 
 /datum/reagent/organic/capsaicin/affect_blood(mob/living/carbon/M, alien, effect_multiplier)
 	M.adjustToxLoss(0.05 * effect_multiplier)
@@ -388,12 +387,12 @@
 	description = "Uh, some kind of drink."
 	reagent_state = LIQUID
 	color = "#E78108"
+	reagent_type = "Drink"
 	var/nutrition = 0 // Per metabolism tick
 	var/adj_dizzy = 0 // Per metabolism tick
 	var/adj_drowsy = 0
 	var/adj_sleepy = 0
 	var/adj_temp = 0
-	reagent_type = "Drink"
 
 /datum/reagent/drink/affect_blood(mob/living/carbon/M, alien, effect_multiplier)
 	M.adjustToxLoss(0.2) // Probably not a good idea; not very deadly though
