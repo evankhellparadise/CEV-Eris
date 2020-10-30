@@ -68,7 +68,7 @@
 	return accumulatedNSA
 
 /datum/metabolism_effects/proc/add_nsa_modif(delay, affect, id)
-	for(var/datum/stat_mod/NSAM in mods_nsa_threshold)
+	for(var/datum/nsa_threshold_mod/NSAM in mods_nsa_threshold)
 		if(NSAM.id == id)
 			if(delay == INFINITY)
 				NSAM.time = -1
@@ -76,10 +76,10 @@
 				NSAM.time = world.time + delay
 			NSAM.value = affect
 			return
-	mods_nsa_threshold += new /datum/stat_mod(delay, affect, id)
+	mods_nsa_threshold += new /datum/nsa_threshold_mod(delay, affect, id)
 
 /datum/metabolism_effects/proc/remove_nsa_modifier(id)
-	for(var/datum/stat_mod/NSAM in mods_nsa_threshold)
+	for(var/datum/nsa_threshold_mod/NSAM in mods_nsa_threshold)
 		if(NSAM.id == id)
 			mods_nsa_threshold.Remove(NSAM)
 			return
