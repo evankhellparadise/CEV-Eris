@@ -772,7 +772,7 @@
 			M.Weaken(2)
 		M.drowsyness = max(M.drowsyness, 20)
 	else
-		M.sleeping = max(M.sleeping, 20)
+		M.Sleeping(20)
 		M.drowsyness = max(M.drowsyness, 60)
 	M.add_chemical_effect(CE_PULSE, -1)
 

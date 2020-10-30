@@ -356,7 +356,7 @@
 			M.Weaken(2)
 		M.drowsyness = max(M.drowsyness, 20)
 	else
-		M.sleeping = max(M.sleeping, 20)
+		M.Sleeping(20)
 		M.drowsyness = max(M.drowsyness, 60)
 	M.add_chemical_effect(CE_PULSE, -1)
 
@@ -382,7 +382,7 @@
 		M.Weaken(30)
 		M.eye_blurry = max(M.eye_blurry, 10)
 	else
-		M.sleeping = max(M.sleeping, 30)
+		M.Sleeping(30)
 
 	if(effective_dose > 1)
 		M.adjustToxLoss(effect_multiplier * 0.1)

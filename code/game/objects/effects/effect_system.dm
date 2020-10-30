@@ -311,12 +311,12 @@ steam.start() -- spawns the effect
 /////////////////////////////////////////////
 
 
-/obj/effect/effect/smoke/sleepy/affect(mob/living/carbon/M as mob )
+/obj/effect/effect/smoke/sleepy/affect(mob/living/carbon/M)
 	if (!..())
 		return 0
 
 	M.drop_item()
-	M:sleeping += 1
+	M.AdjustSleeping(1)
 	if (M.coughedtime != 1)
 		M.coughedtime = 1
 		M.emote("cough")

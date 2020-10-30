@@ -213,7 +213,7 @@
 				M.visible_message(SPAN_NOTICE("[M] shakes [src] trying to wake [t_him] up!"), \
 				SPAN_NOTICE("You shake [src], but they do not respond... Maybe they have S.S.D?"))
 			else if(lying || src.sleeping)
-				src.sleeping = max(0,src.sleeping-5)
+				AdjustSleeping(-5)
 				if(src.sleeping == 0)
 					src.resting = 0
 				M.visible_message(SPAN_NOTICE("[M] shakes [src] trying to wake [t_him] up!"), \

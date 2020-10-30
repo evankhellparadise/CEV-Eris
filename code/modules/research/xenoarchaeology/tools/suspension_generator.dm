@@ -224,15 +224,15 @@
 	switch(field_type)
 		if("carbon")
 			for(var/mob/living/carbon/M in T)
-				M.weakened += 5
+				M.AdjustWeakened(5)
 				M.visible_message(SPAN_NOTICE("[M] begins to float in the air!"), "You feel tingly and light, but it is difficult to move.")
 		if("iron")
 			for(var/mob/living/silicon/M in T)
-				M.weakened += 5
+				M.AdjustWeakened(5)
 				M.visible_message(SPAN_NOTICE("[M] begins to float in the air!"), "You feel tingly and light, but it is difficult to move.")
 
 	for(var/mob/living/simple_animal/M in T)
-		M.weakened += 5
+		M.AdjustWeakened(5)
 		M.visible_message(SPAN_NOTICE("[M] begins to float in the air!"), "You feel tingly and light, but it is difficult to move.")
 
 	suspension_field = new(T)
@@ -296,8 +296,8 @@
 /obj/effect/suspension_field
 	name = "energy field"
 	icon = 'icons/effects/effects.dmi'
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/field_type = "chlorine"
 
 /obj/effect/suspension_field/Destroy()

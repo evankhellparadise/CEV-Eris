@@ -22,7 +22,7 @@
 /mob/fall_impact(var/turf/from, var/turf/dest)
 	return
 
-/mob/proc/take_overall_damage(var/brute, var/burn, var/used_weapon = null)
+/mob/proc/take_overall_damage(var/brute, var/burn, var/used_weapon)
 	return
 
 /mob/Initialize()
@@ -35,23 +35,22 @@
 	. = ..()
 
 /mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
-
 	if(!client)	return
 
-	if (type)
+	if(type)
 		if(type & 1 && (sdisabilities & BLIND || blinded || paralysis) )//Vision related
-			if (!( alt ))
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if (type & 2 && (sdisabilities & DEAF || ear_deaf))//Hearing related
-			if (!( alt ))
+		if(type & 2 && (sdisabilities & DEAF || ear_deaf))//Hearing related
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if ((type & 1 && sdisabilities & BLIND))
+				if((type & 1 && sdisabilities & BLIND))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || sleeping > 0)
@@ -75,10 +74,10 @@
 
 	for(var/A in GLOB.player_list)
 		var/mob/M = A
-		if (QDELETED(M))
+		if(QDELETED(M))
 			GLOB.player_list -= M
 			continue
-		if (!M.client || istype(M, /mob/new_player))
+		if(!M.client || istype(M, /mob/new_player))
 			continue
 		if(get_turf(M) in messageturfs)
 			messagemobs += M
@@ -108,7 +107,6 @@
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
 /mob/audible_message(var/message, var/deaf_message, var/hearing_distance, var/self_message)
-
 	var/range = world.view
 	if(hearing_distance)
 		range = hearing_distance
@@ -136,14 +134,14 @@
 
 /mob/proc/findname(msg)
 	for(var/mob/M in SSmobs.mob_list)
-		if (M.real_name == text("[]", msg))
+		if(M.real_name == text("[]", msg))
 			return M
 	return 0
 
 /mob/proc/movement_delay()
 	. = 0
 
-	if ((drowsyness > 0) && !MOVING_DELIBERATELY(src))
+	if((drowsyness > 0) && !MOVING_DELIBERATELY(src))
 		. += 6
 	if(lying) //Crawling, it's slower
 		. += 14 + (weakened)
@@ -171,13 +169,13 @@
 	return incapacitated(INCAPACITATION_DISABLED)
 
 /mob/proc/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
-	if ((incapacitation_flags & INCAPACITATION_STUNNED) && stunned)
+	if((incapacitation_flags & INCAPACITATION_STUNNED) && stunned)
 		return 1
 
-	if ((incapacitation_flags & INCAPACITATION_FORCELYING) && (weakened || resting || pinned.len))
+	if((incapacitation_flags & INCAPACITATION_FORCELYING) && (weakened || resting || pinned.len))
 		return 1
 
-	if ((incapacitation_flags & INCAPACITATION_UNCONSCIOUS) && (stat || paralysis || sleeping || (status_flags & FAKEDEATH)))
+	if((incapacitation_flags & INCAPACITATION_UNCONSCIOUS) && (stat || paralysis || sleeping || (status_flags & FAKEDEATH)))
 		return 1
 
 	if((incapacitation_flags & INCAPACITATION_RESTRAINED) && restrained())
@@ -200,12 +198,12 @@
 	return
 
 /mob/proc/reset_view(atom/A)
-	if (client)
-		if (istype(A, /atom/movable))
+	if(client)
+		if(istype(A, /atom/movable))
 			client.perspective = EYE_PERSPECTIVE
 			client.eye = A
 		else
-			if (isturf(loc))
+			if(isturf(loc))
 				client.eye = client.mob
 				client.perspective = MOB_PERSPECTIVE
 			else
@@ -218,7 +216,7 @@
 	return
 
 
-/mob/proc/show_inv(mob/user as mob)
+/mob/proc/show_inv(mob/user)
 	return
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
@@ -232,7 +230,7 @@
 
 	face_atom(A)
 	var/obj/item/device/lighting/toggleable/flashlight/FL = locate() in src
-	if (FL && FL.on && src.stat != DEAD && !incapacitated())
+	if(FL && FL.on && src.stat != DEAD && !incapacitated())
 		FL.afterattack(A,src)
 	A.examine(src)
 
@@ -246,7 +244,7 @@
 		return 0
 
 	var/tile = get_turf(A)
-	if (!tile)
+	if(!tile)
 		return 0
 
 	var/obj/P = new /obj/effect/decal/point(tile)
@@ -261,7 +259,7 @@
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if(!istype(l_hand, /obj/item/weapon/grab) && !istype(r_hand, /obj/item/weapon/grab))
-		if (!L)
+		if(!L)
 			return null
 		else
 			return L.container
@@ -272,18 +270,18 @@
 			L.master = src
 		if(istype(l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = l_hand
-			if (!L.container.Find(G.affecting))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
 		if(istype(r_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = r_hand
-			if (!L.container.Find(G.affecting))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
 		if(!flag)
-			if (L.master == src)
+			if(L.master == src)
 				var/list/temp = list()
 				temp += L.container
 				//L = null
@@ -299,7 +297,7 @@
 	set src = usr
 
 	var/obj/item/W = get_active_hand()
-	if (W)
+	if(W)
 		W.attack_self(src)
 
 /*
@@ -335,15 +333,15 @@
 /mob/proc/store_memory(msg as message, popup, sane = 1)
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 
-	if (sane)
+	if(sane)
 		msg = sanitize(msg)
 
-	if (length(memory) == 0)
+	if(length(memory) == 0)
 		memory += msg
 	else
 		memory += "<BR>[msg]"
 
-	if (popup)
+	if(popup)
 		memory()
 
 /mob/proc/update_flavor_text()
@@ -356,7 +354,7 @@
 		flavor_text = msg
 
 /mob/proc/print_flavor_text()
-	if (flavor_text && flavor_text != "")
+	if(flavor_text && flavor_text != "")
 		var/msg = trim(replacetext(flavor_text, "\n", " "))
 		if(!msg) return ""
 		if(length(msg) <= 40)
@@ -425,7 +423,7 @@
 			continue
 		if(istype(O, /obj/item/weapon/disk/nuclear))
 			var/name = "Nuclear Disk"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -435,7 +433,7 @@
 
 		if(istype(O, /obj/singularity))
 			var/name = "Singularity"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -445,7 +443,7 @@
 
 		if(istype(O, /obj/machinery/bot))
 			var/name = "BOT: [O.name]"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -456,7 +454,7 @@
 
 	for(var/mob/M in sortNames(SSmobs.mob_list))
 		var/name = M.name
-		if (names.Find(name))
+		if(names.Find(name))
 			namecounts[name]++
 			name = "[name] ([namecounts[name]])"
 		else
@@ -468,19 +466,19 @@
 
 	client.perspective = EYE_PERSPECTIVE
 
-	var/eye_name = null
+	var/eye_name
 
 	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
 	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
 
-	if (!eye_name)
+	if(!eye_name)
 		return
 
 	var/mob/mob_eye = creatures[eye_name]
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if (is_admin)
+		if(is_admin)
 			client.adminobs = 1
 			if(mob_eye == client.mob || client.eye == client.mob)
 				client.adminobs = 0
@@ -534,7 +532,6 @@
 
 
 /mob/verb/stop_pulling()
-
 	set name = "Stop Pulling"
 	set category = "IC"
 
@@ -544,12 +541,11 @@
 		/*if(pullin)
 			pullin.icon_state = "pull0"*/
 
-/mob/proc/start_pulling(var/atom/movable/AM)
-
-	if ( !AM || !usr || src==AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+/mob/proc/start_pulling(atom/movable/AM)
+	if(!AM || !usr || src==AM || !isturf(src.loc))	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
 		return
 
-	if (AM.anchored)
+	if(AM.anchored)
 		to_chat(src, "<span class='warning'>It won't budge!</span>")
 		return
 
@@ -709,7 +705,6 @@ TODO: Bay Movement:
 All Canmove setting in this proc is temporary. This var should not be set from here, but from movement controllers
 */
 /mob/proc/update_lying_buckled_and_verb_status()
-
 	if(!resting && cannot_stand() && can_stand_overridden())
 		lying = 0
 		canmove = TRUE //TODO: Remove this
@@ -837,10 +832,10 @@ All Canmove setting in this proc is temporary. This var should not be set from h
 
 /mob/living/Paralyse(amount)
 	var/zero_before = FALSE
-	if (!paralysis)
+	if(!paralysis)
 		zero_before = TRUE
 	.=..()
-	if (. && zero_before)
+	if(. && zero_before)
 		//These three procs instantly create the blinding/sleep overlay
 		//We only call them if the mob has just become paralysed, to prevent an infinite loop
 		handle_regular_status_updates() //This checks paralysis and sets stat
@@ -925,7 +920,7 @@ mob/proc/yank_out_object()
 	var/mob/S = src
 	var/mob/U = usr
 	var/list/valid_objects = list()
-	var/self = null
+	var/self
 
 	if(S == U)
 		self = 1 // Removing object from yourself.
@@ -970,10 +965,10 @@ mob/proc/yank_out_object()
 		affected.implants -= selection
 		affected.embedded -= selection
 		selection.on_embed_removal(src)
-		H.shock_stage+=20
+		H.shock_stage += 20
 		affected.take_damage((selection.w_class * 3), 0, 0, 1, "Embedded object extraction")
 
-		if (ishuman(U))
+		if(ishuman(U))
 			var/mob/living/carbon/human/human_user = U
 			human_user.bloody_hands(H)
 
@@ -1042,7 +1037,6 @@ mob/proc/yank_out_object()
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
-
 	for(var/I in contents)
 		if(istype(I,/mob/living/simple_animal/borer))
 			return I
@@ -1053,7 +1047,6 @@ mob/proc/yank_out_object()
 	return
 
 /mob/verb/face_direction()
-
 	set name = "Face Direction"
 	set category = "IC"
 	set src = usr
@@ -1104,7 +1097,7 @@ mob/proc/yank_out_object()
 	"}
 	// Perks
 	var/list/Plist = list()
-	if (stats) // Check if mob has stats. Otherwise we cannot read null.perks
+	if(stats) // Check if mob has stats. Otherwise we cannot read null.perks
 		for(var/perk in stats.perks)
 			var/datum/perk/P = perk
 			var/filename = sanitizeFileName("[P.type].png")
@@ -1124,7 +1117,7 @@ mob/proc/yank_out_object()
 	B.open()
 
 /mob/proc/getStatStats(typeOfStat)
-	if (SSticker.current_state != GAME_STATE_PREGAME)
+	if(SSticker.current_state != GAME_STATE_PREGAME)
 		if(stats)
 			return stats.getStat(typeOfStat)
 		return 0
@@ -1175,7 +1168,7 @@ mob/proc/yank_out_object()
 //Throwing stuff
 
 /mob/proc/toggle_throw_mode()
-	if (src.in_throw_mode)
+	if(src.in_throw_mode)
 		throw_mode_off()
 	else
 		throw_mode_on()
@@ -1201,7 +1194,7 @@ mob/proc/yank_out_object()
 /mob/proc/swap_hand()
 	return
 
-/mob/proc/check_CH(CH_name as text, var/CH_type, var/second_arg = null)
+/mob/proc/check_CH(CH_name as text, var/CH_type, var/second_arg)
 	if(!src.client.CH || !istype(src.client.CH, CH_type))//(src.client.CH.handler_name != CH_name))
 		src.client.CH = new CH_type(client, second_arg)
 		to_chat(src, SPAN_WARNING("You prepare [CH_name]."))
@@ -1210,10 +1203,9 @@ mob/proc/yank_out_object()
 	return
 
 /mob/proc/kill_CH()
-	if (src.client.CH)
+	if(src.client.CH)
 		to_chat(src, SPAN_NOTICE ("You unprepare [src.client.CH.handler_name]."))
 		qdel(src.client.CH)
-
 
 /mob/living/proc/Released()
 	//This is called when the mob is let out of a holder
@@ -1271,6 +1263,7 @@ mob/proc/yank_out_object()
 		return
 	var/obj/screen/zone_sel/selector = mob.HUDneed["damage zone"]
 	selector.set_selected_zone(next_list_item(mob.targeted_organ,zones))
+
 /mob/proc/set_stat(var/new_stat)
 	. = stat != new_stat
 	stat = new_stat

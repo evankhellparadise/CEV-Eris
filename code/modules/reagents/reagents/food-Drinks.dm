@@ -1189,7 +1189,7 @@
 	..()
 	M.dizziness = max(0, M.dizziness - 5 * effect_multiplier)
 	M.drowsyness = max(0, M.drowsyness - 3 * effect_multiplier)
-	M.sleeping = max(0, M.sleeping - 2 * effect_multiplier)
+	M.AdjustSleeping(M.sleeping - 2 * effect_multiplier)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT) * effect_multiplier)
 

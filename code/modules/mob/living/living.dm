@@ -424,7 +424,7 @@ default behaviour is:
 	disabilities = 0
 
 	// fix blindness and deafness
-	blinded = 0
+	blinded = FALSE
 	eye_blind = 0
 	eye_blurry = 0
 	ear_deaf = 0
@@ -666,7 +666,7 @@ default behaviour is:
 /mob/living/proc/has_eyes()
 	return TRUE
 
-/mob/living/proc/slip(var/slipped_on,stun_duration=8)
+/mob/living/proc/slip(slipped_on, stun_duration=8)
 	return FALSE
 
 //damage/heal the mob ears and adjust the deaf amount
