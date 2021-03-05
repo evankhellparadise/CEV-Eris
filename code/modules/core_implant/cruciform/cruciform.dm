@@ -22,6 +22,13 @@ var/list/disciples = list()
 	. = ..()
 	if(.)
 		target.stats.addPerk(/datum/perk/sanityboost)
+		if(target.client)
+			if(target.mind && target.mind.assigned_job && target.mind.assigned_job.department == DEPARTMENT_CHURCH)
+				return .
+			var/datum/category_item/setup_option/core_implant/I = target.client.prefs.get_option("Core implant")
+			if((I && I.implant_type	&& istype(I.implant_type,  /obj/item/weapon/implant/core_implant/cruciform)) && (!target.mind || !(target.mind.assigned_role == "Robot" || target.mind.assigned_role == "AI")))
+				return .
+			GLOB.new_neothecnology_convert++
 
 /obj/item/weapon/implant/core_implant/cruciform/uninstall()
 	wearer.stats.removePerk(/datum/perk/sanityboost)
@@ -80,15 +87,13 @@ var/list/disciples = list()
 	..()
 	if(active && round(world.time) % 5 == 0)
 		remove_cyber()
-	if(wearer && wearer.stat == DEAD)
-		deactivate()
-	if(wearer && wearer.stats && wearer.stats.getPerk(/datum/perk/channeling) && round(world.time) % 5 == 0)
-		power_regen -= channeling_boost  // Removing the previous channeling boost since the number of disciples may have changed
-		wearer.visible_message(SPAN_DANGER("Old [channeling_boost]"))
-		channeling_boost = 0.2 * disciples.len  // Proportional to the number of cruciformed people on board
-		power_regen += channeling_boost  // Applying the new power regeneration boost
-		wearer.visible_message(SPAN_DANGER("New [channeling_boost]"))
-
+	if(wearer)
+		if(wearer.stat == DEAD)
+			deactivate()
+		else if(wearer.stats?.getPerk(/datum/perk/channeling) && round(world.time) % 5 == 0)
+			power_regen -= channeling_boost  // Removing the previous channeling boost since the number of disciples may have changed
+			channeling_boost = 0.2 * disciples.len  // Proportional to the number of cruciformed people on board
+			power_regen += channeling_boost  // Applying the new power regeneration boost
 
 /obj/item/weapon/implant/core_implant/cruciform/proc/transfer_soul()
 	if(!wearer || !activated)
