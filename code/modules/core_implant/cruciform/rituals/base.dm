@@ -123,10 +123,10 @@
 
 /datum/ritual/cruciform/base/revelation/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
 	var/mob/living/carbon/human/T = get_front_human_in_range(H, 4)
+	//if(!T || !T.client)
 	if(!T)
 		fail("No target.", H, C)
 		return FALSE
-	eotp.scanned -= T
 	T.hallucination(50,100)
 	var/sanity_gain = rand(0,10)
 	T.druggy = max(T.druggy, 10)
