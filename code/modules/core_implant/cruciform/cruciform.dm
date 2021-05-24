@@ -25,7 +25,7 @@ var/list/disciples = list()
 
 	var/true_power_regen = power_regen
 	true_power_regen += max(round(wearer.stats.getStat(STAT_COG) / 4), 0) * (1 / (1 MINUTES))
-	true_power_regen +=  power_regen * 1.5 * righteous_life / max_righteous_life
+	true_power_regen += power_regen * 1.5 * righteous_life / max_righteous_life
 	if(wearer && wearer.stats?.getPerk(/datum/perk/channeling))
 		true_power_regen += power_regen * disciples.len / 2.5  // Proportional to the number of cruciformed people on board
 
@@ -46,7 +46,7 @@ var/list/disciples = list()
 		righteous_life = max(righteous_life - 0.5, 0)
 
 /obj/item/weapon/implant/core_implant/cruciform/proc/on_ritual()
-	righteous_life = min(righteous_life + 20, max_righteous_life)
+	righteous_life = min(righteous_life + 25, max_righteous_life)
 
 
 /obj/item/weapon/implant/core_implant/cruciform/install(mob/living/target, organ, mob/user)
@@ -196,7 +196,7 @@ var/list/disciples = list()
 /obj/item/weapon/implant/core_implant/cruciform/proc/make_common()
 	remove_modules(CRUCIFORM_PRIEST)
 	remove_modules(CRUCIFORM_INQUISITOR)
-	remove_modules(/datum/core_module/cruciform/red_light)
+	remove_modules(CRUCIFORM_REDLIGHT)
 
 /obj/item/weapon/implant/core_implant/cruciform/proc/make_priest()
 	add_module(new CRUCIFORM_PRIEST)
@@ -206,4 +206,4 @@ var/list/disciples = list()
 	add_module(new CRUCIFORM_PRIEST)
 	add_module(new CRUCIFORM_INQUISITOR)
 	add_module(new /datum/core_module/cruciform/uplink())
-	remove_modules(/datum/core_module/cruciform/red_light)
+	remove_modules(CRUCIFORM_REDLIGHT)
