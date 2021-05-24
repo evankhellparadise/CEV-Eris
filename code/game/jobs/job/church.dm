@@ -90,7 +90,7 @@
 	)
 
 	core_upgrades = list(
-		CRUCIFORM_ACOLYTE
+		CRUCIFORM_PRIEST
 	)
 
 	description = "You serve the NeoTheology Preacher as a disciple of the Faith.<br>\

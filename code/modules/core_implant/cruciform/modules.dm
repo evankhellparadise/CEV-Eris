@@ -178,9 +178,6 @@
 	ritual_types = list(/datum/ritual/cruciform/priest,
 	/datum/ritual/targeted/cruciform/priest)
 
-/datum/core_module/rituals/cruciform/priest/acolyte
-	ritual_types = list(/datum/ritual/cruciform/priest/acolyte,
-	/datum/ritual/targeted/cruciform/priest/acolyte)
 
 
 /datum/core_module/rituals/cruciform/inquisitor
