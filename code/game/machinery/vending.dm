@@ -937,7 +937,7 @@
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/tea/green = 10, /obj/item/weapon/reagent_containers/food/drinks/tea/black = 10)
 	vend_delay = 15
 	idle_power_usage = 211 //refrigerator - believe it or not, this is actually the average power consumption of a refrigerated vending machine according to NRCan.
-	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
+	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this ship?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	auto_price = FALSE
 
@@ -964,7 +964,7 @@
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/ice = 10)
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 3, /obj/item/weapon/reagent_containers/food/drinks/tea/black = 3,
 					/obj/item/weapon/reagent_containers/food/drinks/tea/green = 3, /obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 3)
-
+	vendor_department = DEPARTMENT_CIVILIAN
 
 
 
@@ -982,7 +982,7 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 45,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 40,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 40,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 40, /obj/item/weapon/reagent_containers/food/snacks/tastybread = 50,
 					/obj/item/weapon/reagent_containers/food/snacks/syndicake = 60)
-
+	vendor_department = DEPARTMENT_CIVILIAN
 
 /obj/machinery/vending/weapon_machine
 	name = "Frozen Star Guns&Ammo"
@@ -1074,6 +1074,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/cans/iced_tea = 30,/obj/item/weapon/reagent_containers/food/drinks/cans/grape_juice = 30,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/thirteenloko = 50, /obj/item/weapon/reagent_containers/food/snacks/liquidfood = 60)
 	idle_power_usage = 211 //refrigerator - believe it or not, this is actually the average power consumption of a refrigerated vending machine according to NRCan.
+	vendor_department = DEPARTMENT_CIVILIAN
 
 /obj/machinery/vending/cigarette
 	name = "Cigarette machine" //OCD had to be uppercase to look nice with the new formating
@@ -1246,7 +1247,8 @@
 					/obj/item/weapon/storage/box/evidence = 2,
 					/obj/item/weapon/computer_hardware/hard_drive/portable/design/security = 2,
 					/obj/item/weapon/computer_hardware/hard_drive/portable/design/armor/ih = 2,
-					/obj/item/weapon/computer_hardware/hard_drive/portable/design/armor/ih/bulletproof = 1)
+					/obj/item/weapon/computer_hardware/hard_drive/portable/design/armor/ih/bulletproof = 1,
+					/obj/item/weapon/storage/ration_pack/ihr = 3)
 	contraband = list(/obj/item/weapon/tool/knife/tacknife = 4,/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12)
 	auto_price = FALSE
 
@@ -1265,7 +1267,7 @@
 /obj/machinery/vending/hydroseeds
 	name = "MegaSeed Servitor"
 	desc = "When you need seeds fast!"
-	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
+	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the ship!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
 	always_open = TRUE
@@ -1357,7 +1359,7 @@
 //This one's from bay12
 /obj/machinery/vending/engineering
 	name = "Robco Tool Maker"
-	desc = "Everything you need for do-it-yourself station repair."
+	desc = "Everything you need for do-it-yourself ship repair."
 	icon_state = "engi"
 	icon_deny = "engi-deny"
 	products = list(/obj/item/clothing/head/hardhat = 4,
@@ -1505,7 +1507,7 @@
 					/obj/item/clothing/mask/balaclava = 100
 					)
 	idle_power_usage = 211
-	vendor_department = DEPARTMENT_CIVILIAN
+	vendor_department = DEPARTMENT_OFFSHIP
 
 /obj/machinery/vending/billomat
 	name = "Bill Trustworthy's Discount Guns and Enterprising Detritus"
@@ -1557,7 +1559,7 @@
 					/obj/item/weapon/storage/deferred/crate/clown_crime/chains = 1800
 					)
 	idle_power_usage = 211
-	vendor_department = DEPARTMENT_CIVILIAN
+	vendor_department = DEPARTMENT_OFFSHIP
 
 /obj/machinery/vending/custom
 	name = "Custom Vendomat"

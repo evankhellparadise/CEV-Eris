@@ -19,7 +19,7 @@
 	name = "Relief"
 	phrase = "Et si ambulavero in medio umbrae mortis non timebo mala"
 	desc = "Short litany to relieve pain of the afflicted."
-	power = 50
+	power = 20
 	ignore_stuttering = TRUE
 
 /datum/ritual/cruciform/base/relief/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
@@ -45,7 +45,7 @@
 	name = "Entreaty"
 	phrase = "Deus meus ut quid dereliquisti me"
 	desc = "Call for help, that other cruciform bearers can hear."
-	power = 50
+	cooldown_time = 1 MINUTES
 	ignore_stuttering = TRUE
 
 /datum/ritual/cruciform/base/entreaty/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
@@ -64,7 +64,7 @@
 /datum/ritual/cruciform/base/reveal
 	name = "Reveal Adversaries"
 	phrase = "Et fumus tormentorum eorum ascendet in saecula saeculorum: nec habent requiem die ac nocte, qui adoraverunt bestiam, et imaginem ejus, et si quis acceperit caracterem nominis ejus."
-	desc = "Gain knowledge of your surroundings, to reveal evil in people and places. Can tell you about hostile creatures around you, rarely can help you spot traps, and sometimes let you sense a carrion."
+	desc = "Gain knowledge of your surroundings, to reveal evil in people and places. Can tell you about hostile creatures around you, rarely can help you spot traps."
 	power = 35
 
 /datum/ritual/cruciform/base/reveal/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
@@ -98,6 +98,7 @@
 	name = "Cruciform sense"
 	phrase = "Et si medio umbrae"
 	desc = "Very short litany to identify NeoTheology followers. Targets individuals directly in front of caster or being grabbed by caster."
+	cooldown_time = 1 MINUTES
 	power = 20
 
 /datum/ritual/cruciform/base/sense_cruciform/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
@@ -124,7 +125,7 @@
 	name = "Revelation"
 	phrase = "Patris ostendere viam"
 	desc = "A person close to you will have a vision that could increase ther sanity... or that's what you hope will happen."
-	power = 50
+	power = 10
 
 /datum/ritual/cruciform/base/revelation/perform(mob/living/carbon/human/H, obj/item/weapon/implant/core_implant/C)
 	var/mob/living/carbon/human/T = get_front_human_in_range(H, 4)
@@ -135,7 +136,6 @@
 	eotp.scanned -= T
 	T.hallucination(50,100)
 	var/sanity_gain = rand(0,10)
-	T.druggy = max(T.druggy, 10)
 	T.sanity.changeLevel(sanity_gain)
 	SEND_SIGNAL(H, COMSIG_RITUAL_REVELATION, src, T)
 	set_personal_cooldown(H)
@@ -281,6 +281,7 @@
 
 /datum/ritual/cruciform/base/install/perform(mob/living/carbon/human/user, obj/item/weapon/implant/core_implant/C)
 	var/mob/living/carbon/human/H = get_victim(user)
+
 	var/obj/item/weapon/implant/core_implant/cruciform/CI = get_implant_from_victim(user, /obj/item/weapon/implant/core_implant/cruciform, FALSE)
 	if(CI)
 		fail("[H] already have a cruciform installed.", user, C)
@@ -308,6 +309,10 @@
 
 	if(!H.lying || !locate(/obj/machinery/optable/altar) in L)
 		fail("[H] must lie on the altar.", user, C)
+		return FALSE
+
+	if(isanimal(H) || isslime(H) || issuperioranimal(H) || H.get_species() == "Monkey")
+		fail("The lesser creatures are unworthy.", user, C)
 		return FALSE
 
 	for(var/obj/item/clothing/CL in H)
